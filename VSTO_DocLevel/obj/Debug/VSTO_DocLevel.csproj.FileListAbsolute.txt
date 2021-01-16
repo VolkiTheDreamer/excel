@@ -1,0 +1,15 @@
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\bin\Debug\VSTO_DocLevel.dll
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\bin\Debug\VSTO_DocLevel.pdb
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\bin\Debug\VSTO_DocLevel.dll.manifest
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\bin\Debug\VSTO_DocLevel.vsto
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\bin\Debug\VSTO_DocLevel.xlsx
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\bin\Debug\Microsoft.Office.Tools.Excel.v4.0.Utilities.dll
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\obj\Debug\VSTO_DocLevel.csprojAssemblyReference.cache
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\obj\Debug\VSTO_DocLevel.Properties.Resources.resources
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\obj\Debug\VSTO_DocLevel.csproj.GenerateResource.cache
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\obj\Debug\VSTO_DocLevel.csproj.CopyComplete
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\obj\Debug\VSTO_DocLevel.dll
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\obj\Debug\VSTO_DocLevel.pdb
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\obj\Debug\VSTO_DocLevel.MyUsercontrol.resources
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTO_DocLevel\obj\Debug\VSTO_DocLevel.Ribbon1.resources

@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSTO_3rdPartyLibs", "VSTO_3rdPartyLibs.csproj", "{8488A51F-AE89-40F1-9099-63E3400088DB}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "VSTO_3rdParty_Setup", "VSTO_3rdParty_Setup\VSTO_3rdParty_Setup.vdproj", "{46D4E47F-6EB4-4506-A945-7DD17B69AB1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8488A51F-AE89-40F1-9099-63E3400088DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8488A51F-AE89-40F1-9099-63E3400088DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8488A51F-AE89-40F1-9099-63E3400088DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8488A51F-AE89-40F1-9099-63E3400088DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46D4E47F-6EB4-4506-A945-7DD17B69AB1B}.Debug|Any CPU.ActiveCfg = Debug
+		{46D4E47F-6EB4-4506-A945-7DD17B69AB1B}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AEF7152C-C266-4069-9E92-0399CEE43BE6}
+	EndGlobalSection
+EndGlobal

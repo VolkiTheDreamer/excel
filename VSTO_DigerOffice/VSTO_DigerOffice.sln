@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSTO_DigerOffice", "VSTO_DigerOffice.csproj", "{7FC9F91D-0EC8-4F1D-8B3C-674C3E3976E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FC9F91D-0EC8-4F1D-8B3C-674C3E3976E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FC9F91D-0EC8-4F1D-8B3C-674C3E3976E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FC9F91D-0EC8-4F1D-8B3C-674C3E3976E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC9F91D-0EC8-4F1D-8B3C-674C3E3976E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30C27106-F04B-470C-96B7-C69B249C3E86}
+	EndGlobalSection
+EndGlobal

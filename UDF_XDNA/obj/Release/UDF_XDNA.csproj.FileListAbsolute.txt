@@ -1,0 +1,9 @@
+C:\Users\volka\source\repos\UDF_XDNA\bin\Release\UDF_XDNA.dll
+C:\Users\volka\source\repos\UDF_XDNA\bin\Release\UDF_XDNA.pdb
+C:\Users\volka\source\repos\UDF_XDNA\bin\Release\ExcelDna.IntelliSense.dll
+C:\Users\volka\source\repos\UDF_XDNA\obj\Release\UDF_XDNA.csprojAssemblyReference.cache
+C:\Users\volka\source\repos\UDF_XDNA\obj\Release\UDF_XDNA.csproj.ResolveComReference.cache
+C:\Users\volka\source\repos\UDF_XDNA\obj\Release\UDF_XDNA.csproj.CopyComplete
+C:\Users\volka\source\repos\UDF_XDNA\obj\Release\UDF_XDNA.dll
+C:\Users\volka\source\repos\UDF_XDNA\obj\Release\UDF_XDNA.pdb
+C:\Users\volka\source\repos\UDF_XDNA\bin\Release\ExcelDna.Utilities.dll

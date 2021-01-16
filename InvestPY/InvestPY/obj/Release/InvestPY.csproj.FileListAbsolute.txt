@@ -1,0 +1,13 @@
+C:\Users\volka\source\repos\InvestPY\bin\Release\InvestPY.dll
+C:\Users\volka\source\repos\InvestPY\bin\Release\InvestPY.pdb
+C:\Users\volka\source\repos\InvestPY\bin\Release\InvestPY.dll.manifest
+C:\Users\volka\source\repos\InvestPY\bin\Release\InvestPY.vsto
+C:\Users\volka\source\repos\InvestPY\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\volka\source\repos\InvestPY\obj\Release\InvestPY.csprojAssemblyReference.cache
+C:\Users\volka\source\repos\InvestPY\obj\Release\InvestPY.Properties.Resources.resources
+C:\Users\volka\source\repos\InvestPY\obj\Release\InvestPY.Ribbon1.resources
+C:\Users\volka\source\repos\InvestPY\obj\Release\InvestPY.SettingsForm.resources
+C:\Users\volka\source\repos\InvestPY\obj\Release\InvestPY.csproj.GenerateResource.cache
+C:\Users\volka\source\repos\InvestPY\obj\Release\InvestPY.csproj.CopyComplete
+C:\Users\volka\source\repos\InvestPY\obj\Release\InvestPY.dll
+C:\Users\volka\source\repos\InvestPY\obj\Release\InvestPY.pdb

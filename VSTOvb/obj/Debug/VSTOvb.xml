@@ -1,0 +1,144 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+VSTOvb
+</name>
+</assembly>
+<members>
+<member name="T:VSTOvb.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources._0">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources._1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources._2">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources._3">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources._4islem">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources._4islem2">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources.abc1_40">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources.makas">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources.makas_32">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources.makas2_40">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:VSTOvb.My.Resources.Resources.makas40">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="T:VSTOvb.ThisRibbonCollection">
+
+</member>
+<member name="M:VSTOvb.ThisRibbonCollection.#ctor(Microsoft.Office.Tools.Ribbon.RibbonFactory)">
+
+</member>
+<member name="T:VSTOvb.ThisAddIn">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.#ctor(Microsoft.Office.Tools.Excel.ApplicationFactory,System.IServiceProvider)">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.Initialize">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.FinishInitialization">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.InitializeDataBindings">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.InitializeCachedData">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.InitializeData">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.BindToData">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.StartCaching(System.String)">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.StopCaching(System.String)">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.IsCached(System.String)">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.BeginInitialization">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.EndInitialization">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.InitializeControls">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.InitializeComponents">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.NeedsFill(System.String)">
+
+</member>
+<member name="M:VSTOvb.ThisAddIn.OnShutdown">
+
+</member>
+<member name="T:VSTOvb.Globals">
+
+</member>
+<member name="M:VSTOvb.Globals.#ctor">
+
+</member>
+</members>
+</doc>

@@ -1,0 +1,38 @@
+0'dan vs kurulumu
+web launcher, vsto kurlumu v.s tüm ayarlar
+
+
+þube kodundna lookup v.s'de excape yapýnca kitleniyor mu hala
+
+
+
+
+- connetionda þifre dðeiþtiri var ya. comobodan seçisin oledb mi odbc mi, ona göre yapsýn. Kýlavuzuda böyle ekle.
+
+-dosya birleþtirmede, filtre koy ve baþlýklarýn aynýsný filtreleyip sil, veya ilk visible seç fonk ile de yapabilrsin
+
+
+
+-
+Ali;veli;osman v.s
+
+Ali
+
+Veli
+
+Osman hhaline getir
+-çoklu barem:
+Fomr açýlsýn, bremleri gir, sçetiðin bi hücreyi ilgili bareme atasýn
+
+-
+Taskpane içn kod:
+
+Belli sayýda örnek 12 ay için bi datayý türetmek.
+
+Takspanede:
+
+1.soru:kaç adet çoððlatcan
+
+2.soru:nereden baþlanacak
+
+3.baþlaàaþaðý hep xle doldursun ,ters pivot kodu çalýþssýn, xleri silsin

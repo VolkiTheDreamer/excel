@@ -1,0 +1,3098 @@
+
+
+From: Volkan.Yurtseven@akbank.com
+To: volkan.yurtseven@hotmail.com
+Subject: vsto add-in
+Date: Wed, 23 Sep 2015 08:06:18 +0000
+
+To do:
+-          Object döndürenleri ctype ile convert et
+-          Baþtaki msgbox sorularý windows form üzerinde tek seferde handle et
+-          Gereksiz sorularý çýkar, kendin kafadan ele al
+-          Numeric enumerationlarý alfabetik hale getir
+ 
+ 
+ 
+ 
+Sub böl1()
+ 
+Dim UST, ALT, KAC, ilk, SON, SONSECIM As Range
+Dim ANADOSYA, YENIDOSYA As Workbook
+Dim x, k, I, ustsatir As Integer
+Dim isim, a, T As String
+ 
+On Error GoTo sýralamadangec
+ 
+answer = MsgBox("'C:' diskinizde 'böl' isminde bir klaösürünüz var mý?", vbYesNo)
+If answer = 6 Then
+    GoTo ilerle
+Else
+    MsgBox "O ZAMAN O KLASÖRÜ YARATIP TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+ilerle:
+cevap = MsgBox("HANGÝ ALANA GÖRE BÖLECEKSEN O ÝLK SÜTUNDA OLMALI. VE BU SÜTUNDA \ KARAKTERÝ OLMAMALI, VARSA ONLARI - ÝLE DEÐÝÞTÝR. AYRICA BAÞLIK SATIRINDAN SONRAKÝ ÝLK SATIRDA HÝÇ BOÞ HÜCRE OLMAMALI, VARSA ONU BOÞLUK VEYA 0 YAPMALISIN. ÞÝMDÝÝÝÝ, BÜTÜN BU DEDÝKLERÝM TAMAMLANDI MI?", vbYesNo)
+If cevap = 6 Then ' YES DEMEK OLUYO
+    GoTo uza
+Else
+    MsgBox "O ZAMAN BUNLARI YAP, TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+ 
+uza:
+answer2 = MsgBox("1:1 print ayarý yapýlsýn mý?", vbYesNo)
+If answer2 = 6 Then ' YES DEMEK OLUYO
+    g = InputBox("landscape için 1, portrait için 2 gir")
+End If
+GoTo bomba
+ 
+ 
+bomba:
+answer3 = MsgBox("Pdf mi olacak?", vbYesNo)
+GoTo devamet
+ 
+devamet:
+m = InputBox("dosya uzantýsý ne olsun" & vbCrLf & "xls için 1 xlsx için 2 girin")
+Select Case m
+    Case 1
+        dtip = 56 'bu olmazsa -4143
+        uzantý = "xls"
+    Case 2
+        dtip = 51
+        uzantý = "xlsx"
+    Case Else
+        MsgBox "yanlýþ giriþ yaptýn, tekrar girin"
+        GoTo devamet
+End Select
+GoTo devamet2
+ 
+devamet2:
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Set ANADOSYA = ActiveWorkbook
+ 
+Select Case ANADOSYA.FileFormat
+    Case "-4143", "-4158", 6, 56 'normal xls, txt, csv veya Excel2007deki 97-2003 xls'i mi
+        isim = Left(ANADOSYA.Name, Len(ANADOSYA.Name) - 3)
+    Case 51, 50, 52 'xlsx, xlsb veya xlsm ise
+        isim = Left(ANADOSYA.Name, Len(ANADOSYA.Name) - 4)
+    Case Else
+        MsgBox "Bu dosya formatý bu makronun çalýþmasý için uygun deðil. xls, xlsx, xlsb, xlsm, txt veya csv dosyalarýyla çalýþmalýsýnýz"
+        Exit Sub
+End Select
+ 
+Set UST = Cells(2, 1)
+Set ALT = UST.End(xlDown)
+ 
+ustsatir = UST.Row
+altsatir = ALT.Row
+ 
+'sýralý deðildir diye sýralayalým
+ 
+Range("A1").CurrentRegion.Sort Key1:=Range("A1"), Order1:=xlAscending, _
+         Header:=xlGuess, OrderCustom:=1, MatchCase _
+        :=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+ 
+'sorun yoksa uyarýyý atlasýn
+GoTo gooooo
+ 
+sýralamadangec: 'hatalýysa sýralamadan geçer
+Merge = MsgBox("Muhtemelen baþlýklarýnda merge cell var, o yüzden A sütununda göre sýralamadan devam edicem. Zaten sýralýysa Evet de, kendin sýralýacyaksan Hayýr de?", vbYesNo)
+ 
+ 
+If Merge = 6 Then ' YES DEMEK OLUYO
+    GoTo gooooo
+Else
+    MsgBox ("Kendiniz sýralamayý seçtiniz, sýralayýp makroyu tekrar çalýþtýrýn")
+    Exit Sub
+End If
+ 
+gooooo:
+Cells(2, 1).Select 'ACTÝV HÜCRE BU
+x = 7
+Set KAC = UST.End(xlToRight)
+k = KAC.Column - 1 'ILKSECIM VE SONSECIMDE OFFSET ÝÇÝN KULLANCAZ, HER AY DEÐÝÞECEK YA
+For I = ustsatir To altsatir
+    If x = 1 Then GoTo ATLA
+   
+    Set ilk = ActiveCell
+    Set ILKSECIM = Range(ilk, ilk.Offset(0, k))
+   
+ATLA:
+    If Cells(I, 1) = Cells(I + 1, 1) Then
+        x = 1
+        ActiveCell.Offset(1, 0).Select
+    Else
+        Set SON = ActiveCell
+        a = ActiveCell.Text
+        T = Trim(a)
+       
+        Set SONSECIM = Range(SON, SON.Offset(0, k))
+        Range("1:1").Copy
+        Set YENIDOSYA = Workbooks.Add
+        ActiveSheet.Paste
+        ANADOSYA.Activate
+        Range(ILKSECIM, SONSECIM).Select
+        Selection.Copy
+        YENIDOSYA.Activate
+        Cells(2, 1).Select
+        'ActiveSheet.Paste '*****************
+        Selection.PasteSpecial Paste:=xlPasteValuesAndNumberFormats, Operation:= _
+        xlNone, SkipBlanks:=False, Transpose:=False
+        Cells.Select
+        Cells.EntireColumn.AutoFit
+       
+        'print ayarý
+        If answer2 = 6 Then
+            With ActiveSheet.PageSetup
+                If g = 1 Then
+                    .Orientation = xlLandscape
+                Else
+                    .Orientation = xlPortrait
+                End If
+                .Zoom = False
+                .FitToPagesWide = 1
+                .FitToPagesTall = 1
+            End With
+        End If
+ 
+ 
+        With YENIDOSYA
+            If answer3 = 6 Then
+                .ActiveWorkbook.ExportAsFixedFormat Type:=xlTypePDF, Filename:= _
+                "C:\böl\" & T & "-" & isim & ".pdf" _
+                , Quality:=xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas _
+                :=False, OpenAfterPublish:=False
+            Else
+                .SaveAs Filename:="C:\böl\" & T & "-" & isim & uzantý, FileFormat:=dtip  'xlworkbooknormal oluyor
+            End If
+            .Close
+        End With
+       
+        
+        SON.Offset(1, 0).Select
+        x = 0
+    End If
+   
+Next I
+Application.DisplayAlerts = True
+Application.ScreenUpdating = True
+End Sub
+Sub böl2()
+'baþlýk 2 satýr
+Dim UST, ALT, KAC, ilk, SON, SONSECIM As Range
+Dim ANADOSYA, YENIDOSYA As Workbook
+Dim x, k, I, ustsatir As Integer
+Dim isim, a, T As String
+On Error GoTo sýralamadangec
+answer = MsgBox("Ana diskinizde(Ör:'C:') 'böl' isminde bir klaösürünüz var mý?", vbYesNo)
+If answer = 6 Then
+    GoTo ilerle
+Else
+    MsgBox "O ZAMAN O KLASÖRÜ YARATIP TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+ilerle:
+cevap = MsgBox("HANGÝ ALANA GÖRE BÖLECEKSEN O ÝLK SÜTUNDA OLMALI. VE BU SÜTUNDA \ KARAKTERÝ OLMAMALI, VARSA ONLARI - ÝLE DEÐÝÞTÝR. AYRICA BAÞLIK SATIRINDAN SONRAKÝ ÝLK SATIRDA HÝÇ BOÞ HÜCRE OLMAMALI, VARSA ONU BOÞLUK VEYA 0 YAPMALISIN. ÞÝMDÝÝÝÝ, BÜTÜN BU DEDÝKLERÝM TAMAMLANDI MI?", vbYesNo)
+If cevap = 6 Then ' YES DEMEK OLUYO
+    GoTo devamet
+Else
+    MsgBox "O ZAMAN BUNLARI YAP, TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+devamet:
+Application.DisplayAlerts = False
+Set ANADOSYA = ActiveWorkbook
+ 
+Select Case ANADOSYA.FileFormat
+    Case "-4143", "-4158", 6, 56 'normal xls, txt, csv veya Excel2007deki 97-2003 xls'i mi
+        isim = Left(ANADOSYA.Name, Len(ANADOSYA.Name) - 3)
+    Case 51, 50, 52 'xlsx, xlsb veya xlsm ise
+        isim = Left(ANADOSYA.Name, Len(ANADOSYA.Name) - 4)
+    Case Else
+        MsgBox "Bu dosya formatý bu makronun çalýþmasý için uygun deðil. xls, xlsx, xlsb, xlsm, txt veya csv dosyalarýyla çalýþmalýsýnýz"
+        Exit Sub
+End Select
+ 
+ 
+Set UST = Cells(3, 1) 'burasý da
+Set ALT = UST.End(xlDown)
+ustsatir = UST.Row
+altsatir = ALT.Row
+ 
+'sýralý deðildir diye sýralayalým
+Range("A1").CurrentRegion.Sort Key1:=Range("A1"), Order1:=xlAscending, _
+         Header:=xlGuess, OrderCustom:=1, MatchCase _
+        :=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+sýralamadangec: 'hatalýysa sýralamadan geçer
+Merge = MsgBox("Muhtemelen baþlýklarýnda merge cell var, o yüzden A sütununda göre sýralamadan devam edicem. Zaten sýralýysa Evet de, kendin sýralýacyaksan Hayýr de?", vbYesNo)
+If Merge = 6 Then ' YES DEMEK OLUYO
+    GoTo gooooo
+Else
+    Exit Sub
+End If
+ 
+gooooo:
+Cells(3, 1).Select 'ACTÝV HÜCRE BU
+x = 0
+Set KAC = UST.End(xlToRight)
+k = KAC.Column - 1 'ILKSECIM VE SONSECIMDE OFFSET ÝÇÝN KULLANCAZ, HER AY DEÐÝÞECEK YA
+For I = ustsatir To altsatir
+    If x = 1 Then GoTo ATLA
+   
+    Set ilk = ActiveCell
+    Set ILKSECIM = Range(ilk, ilk.Offset(0, k))
+   
+ATLA:
+    If Cells(I, 1) = Cells(I + 1, 1) Then
+        x = 1
+        ActiveCell.Offset(1, 0).Select
+    Else
+        Set SON = ActiveCell
+        a = ActiveCell.Text
+        T = Trim(a)
+       
+        Set SONSECIM = Range(SON, SON.Offset(0, k))
+        Range("1:2").Copy 'burasý
+        Set YENIDOSYA = Workbooks.Add
+        ActiveSheet.Paste
+        ANADOSYA.Activate
+        Range(ILKSECIM, SONSECIM).Select
+        Selection.Copy
+        YENIDOSYA.Activate
+        Cells(3, 1).Select
+        ActiveSheet.Paste
+        Cells.Select
+        Cells.EntireColumn.AutoFit
+        With YENIDOSYA
+            .SaveAs Filename:="C:\böl\" & T & "-" & isim & "xls", FileFormat:=-4143  'xlworkbooknormal oluyor
+            .Close
+        End With
+        SON.Offset(1, 0).Select
+        x = 0
+    End If
+   
+Next I
+Application.DisplayAlerts = True
+End Sub
+ 
+Sub coksayfalý_bölme()
+ 
+Dim degisken() As Variant
+ 
+answer = MsgBox("Ana diskinizde(Ör:'C:') 'böl' isminde bir klaösürünüz var mý?", vbYesNo)
+If answer = 6 Then
+    GoTo ilerle1
+Else
+    MsgBox "O ZAMAN O KLASÖRÜ YARATIP TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+ilerle1:
+cevap = MsgBox("HANGÝ ALANA GÖRE BÖLECEKSEN O ÝLK SÜTUNDA OLMALI. VE BU SÜTUNDA \ KARAKTERÝ OLMAMALI, VARSA ONLARI - ÝLE DEÐÝÞTÝR. AYRICA BAÞLIK SATIRINDAN SONRAKÝ ÝLK SATIRDA HÝÇ BOÞ HÜCRE OLMAMALI, VARSA ONU BOÞLUK VEYA 0 YAPMALISIN. ÞÝMDÝÝÝÝ, BÜTÜN BU DEDÝKLERÝM TAMAMLANDI MI?", vbYesNo)
+If cevap = 6 Then ' YES DEMEK OLUYO
+    GoTo ilerle2:
+Else
+    MsgBox "O ZAMAN BUNLARI YAP, TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+ilerle2:
+cevap = MsgBox("Ana dosyanýz ve ondan sonra açýlmýþ unique deðerleri içeren geçici dosya açýk mý?", vbYesNo)
+If cevap = 6 Then ' YES DEMEK OLUYO
+    GoTo uza
+Else
+    MsgBox "O ZAMAN ONLARI YAP, TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+uza:
+answer2 = MsgBox("1:1 print ayarý yapýlsýn mý?", vbYesNo)
+If answer2 = 6 Then ' YES DEMEK OLUYO
+   g = InputBox("landscape için 1, portrait için 2 gir")
+End If
+GoTo bomba
+ 
+ 
+bomba:
+answer3 = MsgBox("Pdf mi olacak?", vbYesNo)
+GoTo devamet
+ 
+ 
+devamet:
+Range("a1").Select
+s = ActiveCell.End(xlDown).Row
+ReDim degisken(0 To s - 1)
+ 
+ 
+For x = 0 To s - 1
+    degisken(x) = ActiveCell.Value
+    ActiveCell.Offset(1, 0).Select
+Next x
+ActiveWorkbook.Close savechanges:=False
+ 
+ 
+ 
+dosya = ActiveWorkbook.FullName
+ 
+Select Case ActiveWorkbook.FileFormat
+    Case "-4143", "-4158", 6, 56 'normal xls, txt, csv veya Excel2007deki 97-2003 xls'i mi
+        ad = Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 3)
+    Case 50, 51, 52 'xlsx, xlsb veya xlsm ise
+        ad = Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 4)
+    Case Else
+        MsgBox "Bu dosya formatý bu makronun çalýþmasý için uygun deðil. xls, xlsx, xlsb, xlsm, txt veya csv dosyalarýyla çalýþmalýsýnýz"
+        Exit Sub
+End Select
+ 
+sayfa = Sheets.Count
+ 
+ 
+ActiveWorkbook.Close savechanges:=True 'az sonra tekrar açýlýyo zaten
+ 
+'baþlýk içinayrý bi dosya yaratalým
+Workbooks.Add
+Set baslik = ActiveWorkbook
+If Sheets.Count < sayfa Then
+        For Q = 1 To sayfa - Sheets.Count
+            Sheets.Add
+        Next Q
+End If
+ 
+ 
+ 
+For k = 0 To s - 1
+    unit = degisken(k)
+ 
+ 
+Workbooks.Open Filename:=dosya
+Set Ana = ActiveWorkbook
+ 
+'baþlýk iþine devam
+   
+    For y = 1 To sayfa
+        Sheets(y).Select
+        Rows("1:1").Select
+        Selection.Copy
+        baslik.Activate
+       
+        Sheets(y).Select
+        ActiveSheet.Paste
+        Ana.Activate
+    Next y
+   
+    For I = 1 To sayfa
+        Sheets(I).Select
+        Range("A1").Select
+        Selection.AutoFilter
+        ActiveSheet.Range("$A$1").CurrentRegion.AutoFilter Field:=1, Criteria1:="<>" & unit & "", _
+            Operator:=xlAnd
+        Rows("1:1").Select
+        Range(Selection, Selection.End(xlDown)).Select
+        Selection.SpecialCells(xlCellTypeVisible).Select
+        Selection.Delete Shift:=xlUp
+    Next I
+   
+    
+    For I = 1 To Sheets.Count
+        baslik.Activate
+        Sheets(I).Select
+        Range("a1").Select
+        Range(Selection, Selection.End(xlToRight)).Select
+        Selection.Copy
+       
+        Ana.Activate
+        Sheets(I).Select
+        Range("a1").Select
+        Selection.Insert Shift:=xlDown
+       
+        
+        'print ayarý
+        If answer2 = 6 Then
+            With ActiveSheet.PageSetup
+                If g = 1 Then
+                    .Orientation = xlLandscape
+                Else
+                    .Orientation = xlPortrait
+                End If
+                .Zoom = False
+                .FitToPagesWide = 1
+                .FitToPagesTall = 1
+            End With
+        End If
+       
+        
+    Next I
+           
+    Application.DisplayAlerts = False
+   
+    If answer3 = 6 Then
+        ActiveWorkbook.ExportAsFixedFormat Type:=xlTypePDF, Filename:= _
+                "C:\böl\" & unit & "-" & ad & "pdf" _
+                , Quality:=xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas _
+                :=False, OpenAfterPublish:=False
+    Else
+        ActiveWorkbook.SaveAs "C:\böl\" & unit & "-" & ad & "xls", FileFormat:=-4143
+    End If
+    ActiveWorkbook.Close
+Next k
+baslik.Close savechanges:=False
+Application.DisplayAlerts = True
+End Sub
+Sub böl_çokisimli()
+ 
+Dim UST, ALT, KAC, ilk, SON, SONSECIM As Range
+Dim ANADOSYA, YENIDOSYA As Workbook
+Dim x, k, I, ustsatir, pp, m As Integer
+Dim isim, a, Z, p As String
+Dim T As Variant
+ 
+ 
+On Error GoTo sýralamadangec
+ 
+answer = MsgBox("Ana diskinizde(Ör:'C:') 'böl' isminde bir klaösürünüz var mý?", vbYesNo)
+If answer = 6 Then
+    GoTo ilerle
+Else
+    MsgBox "O ZAMAN O KLASÖRÜ YARATIP TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+ilerle:
+cevap = MsgBox("Sütun isimlerin en baþta ve yanyana olmalý, ve sütun sýrasý küçükten büyüðe doðru olsun, ör:önce miy sonra þube sonra bölge. VE BU SÜTUNLARDA \ KARAKTERÝ OLMAMALI, VARSA ONLARI - ÝLE DEÐÝÞTÝR. AYRICA BAÞLIK SATIRINDAN SONRAKÝ ÝLK SATIRDA HÝÇ BOÞ HÜCRE OLMAMALI, VARSA ONU BOÞLUK VEYA 0 YAPMALISIN. ÞÝMDÝÝÝÝ, BÜTÜN BU DEDÝKLERÝM TAMAMLANDI MI?", vbYesNo)
+If cevap = 6 Then ' YES DEMEK OLUYO
+    GoTo devamet
+Else
+    MsgBox "O ZAMAN BUNLARI YAP, TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+ 
+devamet:
+Application.DisplayAlerts = False
+Set ANADOSYA = ActiveWorkbook
+ 
+Select Case ANADOSYA.FileFormat
+    Case "-4143", "-4158", 6, 56 'normal xls, txt, csv veya Excel2007deki 97-2003 xls'i mi
+        isim = Left(ANADOSYA.Name, Len(ANADOSYA.Name) - 3)
+    Case 50, 51, 52 'xlsx, xlsb veya xlsm ise
+        isim = Left(ANADOSYA.Name, Len(ANADOSYA.Name) - 4)
+    Case Else
+        MsgBox "Bu dosya formatý bu makronun çalýþmasý için uygun deðil. xls, xlsx, xlsb, xlsm, txt veya csv dosyalarýyla çalýþmalýsýnýz"
+        Exit Sub
+End Select
+ 
+Set UST = Cells(2, 1)
+Set ALT = UST.End(xlDown)
+ 
+ustsatir = UST.Row
+altsatir = ALT.Row
+ 
+'sýralý deðildir diye sýralayalým
+ 
+Range("A1").CurrentRegion.Sort Key1:=Range("A1"), Order1:=xlAscending, _
+         Header:=xlGuess, OrderCustom:=1, MatchCase _
+        :=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal
+ 
+'sorun yoksa uyarýyý atlasýn
+GoTo gooooo
+ 
+sýralamadangec: 'hatalýysa sýralamadan geçer
+Merge = MsgBox("Muhtemelen baþlýklarýnda merge cell var, o yüzden A sütununda göre sýralamadan devam edicem. Zaten sýralýysa Evet de, kendin sýralýacyaksan Hayýr de?", vbYesNo)
+ 
+ 
+If Merge = 6 Then ' YES DEMEK OLUYO
+    GoTo gooooo
+Else
+    MsgBox ("Kendiniz sýralamayý seçtiniz, sýralayýp makroyu tekrar çalýþtýrýn")
+    Exit Sub
+End If
+ 
+gooooo:
+ 
+p = InputBox("kaç isim olacak(max 3), ör: hem bölge adýný hem þube adýný yazdýracaksan 2 yaz, bi de ek olarak miy adýný yazcaksan 3 yaz")
+pp = Val(p) - 1
+ReDim T(0 To pp)
+ 
+ 
+Cells(2, 1).Select 'ACTÝV HÜCRE BU
+x = 7
+Set KAC = UST.End(xlToRight)
+k = KAC.Column - 1 'ILKSECIM VE SONSECIMDE OFFSET ÝÇÝN KULLANCAZ, HER AY DEÐÝÞECEK YA
+For I = ustsatir To altsatir
+    If x = 1 Then GoTo ATLA
+   
+    Set ilk = ActiveCell
+    Set ILKSECIM = Range(ilk, ilk.Offset(0, k))
+   
+ATLA:
+    If Cells(I, 1) = Cells(I + 1, 1) Then
+        x = 1
+        ActiveCell.Offset(1, 0).Select
+    Else
+        Set SON = ActiveCell
+       
+        Z = ""
+        For m = 0 To pp
+            T(pp) = Trim(ActiveCell.Offset(0, m).Text)
+            'Z = IIf(IsNull(Z), Null, Z & "-") & T(p) bu kod, sütun sýrasý büyükten küçüðe ise, ör:önce bölge sonra þube sonra miy
+            Z = T(pp) & IIf(IsNull(Z), Null, "-" & Z)
+        Next m
+       
+        Set SONSECIM = Range(SON, SON.Offset(0, k))
+        Range("1:1").Copy
+        Set YENIDOSYA = Workbooks.Add
+        ActiveSheet.Paste
+        ANADOSYA.Activate
+        Range(ILKSECIM, SONSECIM).Select
+        Selection.Copy
+        YENIDOSYA.Activate
+        Cells(2, 1).Select
+        ActiveSheet.Paste
+        Cells.Select
+        Cells.EntireColumn.AutoFit
+ 
+        With YENIDOSYA
+            .SaveAs Filename:="C:\böl\" & Z & isim & "xls", FileFormat:=-4143   'xlworkbooknormal oluyor
+            .Close
+        End With
+        SON.Offset(1, 0).Select
+        x = 0
+    End If
+   
+Next I
+Application.DisplayAlerts = True
+ 
+End Sub
+ 
+Public Sub BOSLUKSIL()
+ 
+ 
+Set ilk = Application.InputBox("ÝLK HUCREYÝ SEÇ", Type:=8)
+Set SON = Application.InputBox("SON HUCREYÝ SEÇ", Type:=8)
+ 
+ustsatir = ilk.Row
+altsatir = SON.Row
+ 
+ 
+For I = ustsatir To altsatir
+    If IsEmpty(Cells(I, 1)) = True Then
+        Rows(I).Delete
+        altsatir = altsatir - 1
+        I = I - 1
+    End If
+   
+    If I = altsatir Then Exit Sub
+Next I
+Range("A1").Activate
+    
+End Sub
+Sub buyukyap()
+Set Aktif = Selection
+ 
+For Each s In Aktif
+    buyuk = StrConv(s.Value, vbUpperCase)
+    s.Value = buyuk
+Next s
+ 
+    Selection.Replace What:="ý", Replacement:="I", lookat:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+End Sub
+Sub kucukyap()
+Set Aktif = Selection
+ 
+For Each s In Aktif
+    buyuk = StrConv(s.Value, vbLowerCase)
+    s.Value = buyuk
+Next s
+ 
+End Sub
+Sub properyap()
+Set Aktif = Selection
+ 
+For Each s In Aktif
+    buyuk = StrConv(s.Value, vbProperCase)
+    s.Value = buyuk
+Next s
+ 
+End Sub
+Sub tersfiltre()
+'excel 2007de buna pek gerek kalmadý gibi
+    filtre = ActiveCell.Value
+    filtreici = "<>" & filtre
+    Sütun = ActiveCell.Column
+    Selection.AutoFilter Field:=Sütun, Criteria1:=filtreici, Operator _
+        :=xlAnd
+    Range("a1").Select
+End Sub
+Sub yanyanayaz()
+ 
+Set x = Application.InputBox("yeni tablo nereye yazýlacak", Type:=8)
+Set asütun = Application.InputBox("ana deðiþken kriterinin olduðu sütundan bir hücre seç", Type:=8)
+Set dsütun = Application.InputBox("hangi deðiþkenlerin yanyana yazýlmasýný isityorsan o sütundan bir hücre seç", Type:=8)
+ 
+a = asütun.Column
+ds = dsütun.Column
+d = ds - a '2 sütun arasýnda kaç sütun fark var
+ 
+k = 0
+Cells(2, a).Select
+ 
+Do
+    I = 1
+   
+    Do
+       
+        Set aktifhucre = ActiveCell
+        x.Offset(k, 0) = aktifhucre.Value
+        x.Offset(k, 0).Offset(0, I) = aktifhucre.Offset(0, d).Value
+        aktifhucre.Offset(1, 0).Select
+        I = I + 1
+       
+    Loop Until aktifhucre.Value <> aktifhucre.Offset(1, 0).Value
+   
+    k = k + 1
+   
+Loop Until ActiveCell.Value = ""
+ 
+ 
+ 
+ 
+End Sub
+Sub noktalývirgül()
+ 
+cevap = MsgBox("en tepedeki hücredesin dimi", vbYesNo)
+If cevap = 6 Then ' YES DEMEK OLUYO
+ 
+    GoTo devamet
+Else
+    MsgBox "o zaman oraya git öyle çalýþtýr"
+    Exit Sub
+End If
+ 
+devamet:
+ 
+x = InputBox("';' mü olsun, yoksa ',' mü?")
+ 
+    Application.CutCopyMode = False
+    Selection.Copy
+    ActiveCell.Offset(0, 1).Select
+    ActiveSheet.Paste
+    ActiveCell.Offset(1, 0).Select
+    Select Case x
+        Case ";"
+    Selection.FormulaR1C1 = "=RC[-1]&"";""&R[-1]C"
+        Case ","
+    Selection.FormulaR1C1 = "=RC[-1]&"",""&R[-1]C"
+    End Select
+    Selection.AutoFill Destination:=Range(Selection, Selection.Offset(0, -1).End(xlDown).Offset(0, 1))
+    Selection.End(xlDown).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range(Selection.Offset(-1, 0), Selection.Offset(-1, 0).End(xlUp)).Select
+    Selection.ClearContents
+    ActiveCell.End(xlDown).Select
+   
+End Sub
+Sub ilkXsýra()
+ 
+cevap = MsgBox("Ýlk satýrda sadece baþlýklar var sonra data geliyo deðil mi?", vbYesNo)
+ 
+If cevap = 6 Then ' YES DEMEK OLUYO
+    GoTo devamet
+Else
+    MsgBox "O ZAMAN ÖYLE YAP SONRA ÇALIÞTIR"
+    Exit Sub
+End If
+ 
+devamet:
+ 
+'blg = InputBox("sýralama yapacaðýn kriterden kaç tane var")
+ 
+ 
+Set kriter = Application.InputBox("Hangi sütuna göre sýralayacaksan o sütundan bi hücre seç", Type:=8)
+Set rakam = Application.InputBox("rakama göre sýralacaðýn sütundan bi hücre seç", Type:=8)
+Set kritersýra = Application.InputBox("sýrano nereye yazýlacak", Type:=8)
+ 
+ 
+        Range("A1").CurrentRegion.Sort Key1:=kriter, Order1:=xlAscending, Key2:=rakam _
+        , Order2:=xlDescending, Header:=xlGuess, OrderCustom:=1, MatchCase _
+        :=False, Orientation:=xlTopToBottom, DataOption1:=xlSortNormal, _
+        DataOption2:=xlSortNormal
+       
+ 
+ 
+        Cells(2, kriter.Column).Select
+       
+'        For B = 1 To blg
+Do
+            I = 1
+           
+            Do While ActiveCell.Value = ActiveCell.Offset(1, 0).Value
+                    Cells(ActiveCell.Row, kritersýra.Column).Value = I
+                    'k = IIf(i <> y, k, 0)
+                    If Cells(ActiveCell.Row, rakam.Column).Value = Cells(ActiveCell.Offset(1, 0).Row, rakam.Column).Value Then
+                        I = I
+                     '   k = k + 1
+                    Else
+                        I = I + 1
+                       ' i = i + k + 1
+                      '  y = i
+                    End If
+                    ActiveCell.Offset(1, 0).Select
+            Loop
+           
+            Cells(ActiveCell.Row, kritersýra.Column).Value = I
+            ActiveCell.Offset(1, 0).Select
+        'Next B
+Loop While ActiveCell.Value <> ""
+       
+        kritersýra.Value = "Sýra"
+      
+           
+        Range("A1").Select
+    
+End Sub
+Sub pivottaotofill()
+Set ent = Application.InputBox("ilgili sütunda en alt hücreyi seç", Type:=8)
+Set basla = Application.InputBox("nerden baþlancaksa o hücreyi seç", Type:=8)
+ 
+enalt = ent.Row
+ 
+basla.Select
+ 
+Do
+    ActiveCell.Offset(1, 0).Select
+    If IsEmpty(ActiveCell) = True Then
+        ActiveCell.Value = ActiveCell.Offset(-1, 0).Value
+    Else
+        x = 1 'hiç alakasýz biþi iþte, buna gerek bile yok
+    End If
+   
+Loop Until ActiveCell.Row = enalt
+ 
+ 
+End Sub
+Sub pivottaotofill2()
+'bu da aþaðý dogru deðil de yana dogru doldurur
+Set ent = Application.InputBox("ilgili sütunda en sað hücreyi seç", Type:=8)
+Set basla = Application.InputBox("nerden baþlancaksa o hücreyi seç", Type:=8)
+ 
+enalt = ent.Column
+ 
+basla.Select
+ 
+Do
+    ActiveCell.Offset(0, 1).Select
+    If IsEmpty(ActiveCell) = True Then
+        ActiveCell.Value = ActiveCell.Offset(0, -1).Value
+    Else
+        x = 1 'hiç alakasýz biþi iþte, buna gerek bile yok
+    End If
+   
+Loop Until ActiveCell.Column = enalt
+ 
+ 
+End Sub
+Sub sütunlarý_altalta_yazma()
+cvp = MsgBox("sabit alanýn, yani soldaki þubelerin v.s'nin hemen saðýnda boþ bi sütun açtýn mý, boþ hücreler space veya 0 yaptýn mý", vbYesNo)
+If cvp = 6 Then ' YES DEMEK OLUYO
+    GoTo devamet
+Else
+    MsgBox "O ZAMAN ONLARI HALLET, TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+devamet:
+ 
+Set s = Application.InputBox("sabit alan bloðunun en saðdaki sütunundan bi hücre seç", Type:=8)
+Set d1 = Application.InputBox("rakamlý yerden ilkini seç", Type:=8)
+Set d2 = Application.InputBox("rakamlý yerden sonucnusunu seç", Type:=8)
+ 
+SON = s.Column
+altsatýr = Range("a1").End(xlDown).Row - 1
+ 
+kaç = d2.Column - d1.Column
+ 
+ad = Cells(1, d1.Column).Value
+Cells(2, d1.Column - 1).Select
+Selection.Value = ad
+Selection.AutoFill Destination:=Range(Selection, Selection.Offset(0, 1).End(xlDown).Offset(0, -1)), Type:=xlFillCopy
+ 
+ 
+Range(Cells(2, 1), Range("a1").End(xlDown).Offset(0, SON - 1)).Select
+Selection.Copy
+'sabit alna yapýþtýrma
+For I = 1 To kaç
+    Range("a1").End(xlDown).Offset(1, 0).Select
+    ActiveSheet.Paste
+Next I
+ 
+'data yapýtýrma ve baþlýk yazýdrma
+For I = 1 To kaç
+    Range(Cells(2, d1.Column + I), Cells(2, d1.Column + I).End(xlDown)).Select
+    Selection.Copy
+    Cells(2, d1.Column).End(xlDown).Offset(1, 0).Select
+    ActiveSheet.Paste
+   
+    ad = Cells(1, d1.Column + I).Value
+    Cells(2, d1.Column - 1).End(xlDown).Offset(1, 0).Select
+    Selection.Value = ad
+    Selection.AutoFill Destination:=Range(Selection, Selection.Offset(0, 1).End(xlDown).Offset(0, -1)), Type:=xlFillCopy
+   
+    'uzat ilgil eyre kadar
+Next I
+ 
+For I = d1.Column + 1 To d2.Column
+Columns(I).Select
+Selection.ClearContents
+Next I
+ 
+Cells(1, d1.Column).Value = "Rakam"
+Cells(1, d1.Column - 1).Value = "Kalem"
+ 
+End Sub
+Sub listeyi_ayrýayrý_altaltayaz()
+ 
+Set baslangic = Application.InputBox("Nihai liste nereye yazýlacaksa orayý seç, solunda bir boþ hücre olsun, ve 1.satýrda olsun", Type:=8)
+Set altliste = Application.InputBox("Liste haline getirelecek sütunu seç", Type:=8)
+Set baslik = Application.InputBox("Baþlýk haline getirelecek sütunu seç", Type:=8)
+ 
+Application.CutCopyMode = False
+baslik.Select
+Selection.Copy
+ 
+baslangic.Offset(0, -1).Select
+ActiveSheet.Paste
+Application.CutCopyMode = False
+ActiveCell.CurrentRegion.RemoveDuplicates Columns:=1, Header:=xlYes
+KAC = ActiveCell.End(xlDown).Row - 1 '-1'in sebebi bi de baþlýk olmasý, onu altta sildiriyom ama þimdi var
+ 
+ActiveCell.End(xlUp).Select
+Selection.Delete Shift:=xlUp
+Range(ActiveCell, ActiveCell.End(xlDown)).Select
+Selection.Copy
+ActiveCell.Offset(0, 1).Select
+Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=True
+ActiveCell.Offset(0, -1).EntireColumn.ClearContents
+ 
+For I = 1 To KAC
+    blg = ActiveCell.Text
+    Set nerdeydim = ActiveCell
+   
+    Range("A1").Select
+    Application.CutCopyMode = False
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1").CurrentRegion.AutoFilter Field:=1, Criteria1:="=" & blg & "", Operator:=xlAnd
+   
+    
+            
+    altliste.End(xlUp).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.SpecialCells(xlCellTypeVisible).Select
+    Selection.Copy
+    nerdeydim.Offset(1, 0).Select
+    ActiveSheet.Paste
+    Application.CutCopyMode = False
+    nerdeydim.Offset(0, 1).Select
+Next I
+ 
+Range("a2").EntireRow.Delete
+ 
+ 
+End Sub
+Sub sheetleribirlestir()
+cvp = MsgBox("tüm sayfalar ayný formatta ve ilk satýrlarda hiç boþ hücre yok deðil mi", vbYesNo)
+If cvp = 6 Then ' YES DEMEK OLUYO
+    GoTo devamet
+Else
+    MsgBox "O ZAMAN ONLARI HALLET, TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+devamet:
+ 
+ 
+Set ANADOSYA = ActiveWorkbook
+ 
+ 
+Sheets.Select
+Sheets(1).Activate
+ 
+   
+    Columns("A:A").Select
+    Selection.Insert Shift:=xlToRight, CopyOrigin:=xlFormatFromLeftOrAbove
+   
+    Range("A1").Select
+    Selection.FormulaR1C1 = "Kalem"
+    With Selection.Characters(Start:=1, Length:=5).Font
+        .Name = "Arial"
+        .FontStyle = "Kalýn"
+        .Size = 9
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+     
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontNone
+    End With
+    Range("A2").Select
+   
+    For I = 1 To Sheets.Count
+        Sheets(I).Select
+        Selection.FormulaR1C1 = ActiveSheet.Name
+        Range("A3").FormulaR1C1 = ActiveSheet.Name 'niye a3e de yazýyorum çünkü, rakamla bitenlerde artýrarak gidiyor
+        Range("a2:a3").Select
+        Selection.AutoFill Destination:=Range(Selection, Selection.Offset(0, 1).End(xlDown).Offset(0, -1))
+    Next I
+   
+    
+    Sheets(1).Select
+    Sheets.Add
+    Sheets(1).Name = "Toplu"
+   
+    Sheets(2).Select 'herhangi bir sayfadan baþlýk alýcaz, 2 olup olmamasý önemli deðil
+    Rows("1:1").Select
+    Selection.Copy
+    Sheets(1).Select
+    Range("A1").Select
+    ActiveSheet.Paste
+ 
+ 
+    For k = 1 To Sheets.Count - 1
+        Sheets(k + 1).Select
+        Range("A2").Select
+        Range(Selection, Selection.End(xlToRight)).Select
+        Range(Selection, Selection.End(xlDown)).Select
+        Application.CutCopyMode = False
+        Selection.Copy
+        Sheets(1).Select
+       
+        
+    Select Case ANADOSYA.FileFormat
+    Case "-4143", "-4158", 6, 56 'normal xls, txt, csv veya Excel2007deki 97-2003 xls'i mi
+        Range("a65000").End(xlUp).Offset(1, 0).Select
+    Case 50, 51, 52 'xlsx, xlsb veya xlsm ise
+        Range("a1048000").End(xlUp).Offset(1, 0).Select
+    Case Else
+        MsgBox "Bu dosya formatý bu makronun çalýþmasý için uygun deðil. xls, xlsx, xlsb, xlsm, txt veya csv dosyalarýyla çalýþmalýsýnýz"
+        Exit Sub
+    End Select
+       
+        'ActiveSheet.Paste
+            Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Next k
+   
+      
+    
+End Sub
+Sub specialcond()
+ 
+On Error GoTo escbas 'sadece esc'ye basmak hata yapar
+ 
+basa:
+yontem = InputBox("En düþük ve en yüksek raklamlý x hücreyi mi renklendirmek istiyorsunuz?(1 girin)" & vbCrLf & _
+", yoksa x'ten küçük, y'den büyük þeklinde mi renklendirmek istiyorsunuz?(2 girin)")
+ 
+ 
+Select Case yontem
+    Case 1, 2
+    Case ""
+        GoTo escbas
+    Case Else
+        MsgBox ("Lütfen sadece 1 veya 2 girin.")
+        GoTo basa
+End Select
+ 
+ 
+ 
+ 
+If yontem = 2 Then
+    cevap = MsgBox("Condition yapmak istediðiniz renkleri boþ bi alanda belirtin. " & vbCrLf & _
+    "Küçük, büyük ve aradakiler için 3 ayrý renk olsun." & vbCrLf & _
+    "Aradakiler için renk belirtmeyecekseniz hücrenin boþ býrakýlmasý yeterli olur." & vbCrLf & _
+    "Hücrelerin içine kaçtan küçük/büyük olackalarýný yazýlý olsun." & vbCrLf & _
+    "Hem hücre rengi hem font rengini ayrý ayrý boyayabilirsiniz." & vbCrLf & _
+    "BÜTÜN BUNLAR YAPILDI MI?", vbYesNo)
+Else
+    cevap = MsgBox("Condition yapmak istediðiniz renkleri boþ bi alanda belirtin. " & vbCrLf & _
+    "En düþük x, en yüksek x ve aradakiler için 3 ayrý renk olsun." & vbCrLf & _
+    "Aradakiler için renk belirtmeyecekseniz hücrenin boþ býrakýlmasý yeterli olur." & vbCrLf & _
+    "Ýlk hücrede x yazýlý olsun." & vbCrLf & _
+    "Hem hücre rengi hem font rengini ayrý ayrý boyayabilirsiniz." & vbCrLf & _
+    "BÜTÜN BUNLAR YAPILDI MI?", vbYesNo)
+End If
+       
+    If cevap = 6 Then ' YES DEMEK OLUYO
+        GoTo devamet
+    Else
+        MsgBox "O zaman yapýn ve tekrar çalýþtýrýn."
+        Exit Sub
+    End If
+ 
+devamet:
+ 
+   
+    Set alan = Application.InputBox("Rakamsal alaný seç", Type:=8)
+    Set hedef = Application.InputBox("Formatlayacaðýn alanýn olduðu satýrý veya sütunu seç.", Type:=8)
+    'satýr mý seçilmiþ sütun mu
+    'Alan.Select
+    If alan.Rows.Count > 1 Then 'sütun seçilmiþse
+        C = hedef.Column
+    Else 'satýr
+        r = hedef.Row
+    End If
+   
+    Adet = hedef.Cells.Count
+   
+tekrar:
+    Set kriterler = Application.InputBox("Renklerin içinde deðerlerin olduðu alaný seçin.", Type:=8)
+    'toplamda 3 hücre olmalý
+    If kriterler.Cells.Count <> 3 Then
+       MsgBox ("Toplamda 3 hücre seçili olmalý, 3 renk için.(Aradakiler için boþ olsa bile boþ hücreyi de seçin")
+       GoTo tekrar
+    End If
+   
+     Set kucukler = kriterler.Cells.Item(1)
+     kucuk = kriterler.Cells.Item(1).Value
+     Set buyukler = kriterler.Cells.Item(2)
+     buyuk = kriterler.Cells.Item(2).Value 'bu aslýnda saedce yöntem 1 için geçerli
+     Set aradakiler = kriterler.Cells.Item(3)
+     deger = kucuk '2.yöntem için, küçükle büyük ayný þey ya
+   
+    'önce bi mevcutta renklendirme varsa onu boþaltalým
+    hedef.Select
+   
+    With Selection.Interior
+        .Pattern = xlNone
+        .TintAndShade = 0
+        .PatternTintAndShade = 0
+    End With
+    With Selection.Font
+        .ColorIndex = xlAutomatic
+        .TintAndShade = 0
+    End With
+   
+        
+    For Each h In alan
+        If yontem = 2 Then
+            If h.Value <= Val(kucuk) Then 'küçükler için
+                If alan.Rows.Count > 1 Then 'sütunsa
+                    Cells(h.Row, C).Interior.ColorIndex = kucukler.Interior.ColorIndex
+                    Cells(h.Row, C).Font.ColorIndex = kucukler.Font.ColorIndex
+                Else 'satýrsa
+                    Cells(r, h.Column).Interior.ColorIndex = kucukler.Interior.ColorIndex
+                    Cells(r, h.Column).Font.ColorIndex = kucukler.Font.ColorIndex
+                End If
+            ElseIf h.Value >= Val(buyuk) Then 'büyükler için
+                If alan.Rows.Count > 1 Then 'sütunsa
+                    Cells(h.Row, C).Interior.ColorIndex = buyukler.Interior.ColorIndex
+                    Cells(h.Row, C).Font.ColorIndex = buyukler.Font.ColorIndex
+                Else 'satýrsa
+                    Cells(r, h.Column).Interior.ColorIndex = buyukler.Interior.ColorIndex
+                    Cells(r, h.Column).Font.ColorIndex = buyukler.Font.ColorIndex
+                End If
+            Else 'aradakiler için
+                If alan.Rows.Count > 1 Then
+                    Cells(h.Row, C).Interior.ColorIndex = aradakiler.Interior.ColorIndex
+                    Cells(h.Row, C).Font.ColorIndex = aradakiler.Font.ColorIndex
+                Else 'satýrsa
+                    Cells(r, h.Column).Interior.ColorIndex = aradakiler.Interior.ColorIndex
+                    Cells(r, h.Column).Font.ColorIndex = aradakiler.Font.ColorIndex
+                End If
+            End If
+        Else 'yötenm 1se
+            If h.Value <= Application.WorksheetFunction.Small(alan, deger) Then 'küçükler için
+                If alan.Rows.Count > 1 Then 'sütunsa
+                    Cells(h.Row, C).Interior.ColorIndex = kucukler.Interior.ColorIndex
+                    Cells(h.Row, C).Font.ColorIndex = kucukler.Font.ColorIndex
+                Else 'satýrsa
+                    Cells(r, h.Column).Interior.ColorIndex = kucukler.Interior.ColorIndex
+                    Cells(r, h.Column).Font.ColorIndex = kucukler.Font.ColorIndex
+                End If
+            ElseIf h.Value >= Application.WorksheetFunction.Large(alan, deger) Then 'büyükler için
+                If alan.Rows.Count > 1 Then 'sütunsa
+                    Cells(h.Row, C).Interior.ColorIndex = buyukler.Interior.ColorIndex
+                    Cells(h.Row, C).Font.ColorIndex = buyukler.Font.ColorIndex
+                Else 'satýrsa
+                    Cells(r, h.Column).Interior.ColorIndex = buyukler.Interior.ColorIndex
+                    Cells(r, h.Column).Font.ColorIndex = buyukler.Font.ColorIndex
+                End If
+            Else 'aradakiler için
+                If alan.Rows.Count > 1 Then
+                    Cells(h.Row, C).Interior.ColorIndex = aradakiler.Interior.ColorIndex
+                    Cells(h.Row, C).Font.ColorIndex = aradakiler.Font.ColorIndex
+                Else 'satýrsa
+                    Cells(r, h.Column).Interior.ColorIndex = aradakiler.Interior.ColorIndex
+                    Cells(r, h.Column).Font.ColorIndex = aradakiler.Font.ColorIndex
+                End If
+            End If
+        End If
+    Next h
+   
+Exit Sub
+ 
+escbas: 'Hatalý durumlarý ele alýyoruz
+escmi = MsgBox("Çýkmak mý istiyorsunuz?", vbYesNo)
+If escmi = 6 Then ' YES DEMEK OLUYO
+    Exit Sub
+Else
+    If yontem = "" Then
+        GoTo basa
+    Else
+        Resume
+    End If
+End If
+ 
+ 
+End Sub
+Sub pdfyap()
+ 
+answer = MsgBox("'C' diskinizde 'pdfyap' isminde bir klaösürünüz var mý?", vbYesNo)
+If answer = 6 Then
+    GoTo ilerle
+Else
+    MsgBox "O ZAMAN O KLASÖRÜ YARATIP TEKRAR ÇALIÞTIR "
+    Exit Sub
+End If
+ 
+ilerle:
+ 
+clsm = InputBox("çalýþmamýn baþlýðý ne olsun?")
+ 
+kactane = InputBox("kaç dosya için")
+ 
+basadon:
+tip = InputBox("aktif sayfa için 1, tüm dosya için 2 girin")
+ 
+If tip <> 1 And tip <> 2 Then
+    MsgBox "sadece 1 veya 2 girin"
+    GoTo basadon
+End If
+ 
+For I = 1 To kactane
+ 
+    Select Case ActiveWorkbook.FileFormat
+        Case "-4143", "-4158", 6, 56 'normal xls, txt, csv veya Excel2007deki 97-2003 xls'i mi
+            isim = Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 4)
+        Case 50, 51, 52 'xlsx, xlsb veya xlsm ise
+            isim = Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5)
+        Case Else
+            MsgBox "Bu dosya formatý bu makronun çalýþmasý için uygun deðil. xls, xlsx, xlsb, xlsm, txt veya csv dosyalarýyla çalýþmalýsýnýz"
+            Exit Sub
+    End Select
+ 
+ 
+    If tip = 1 Then
+        ActiveSheet.ExportAsFixedFormat Type:=xlTypePDF, Filename:= _
+            "C:\pdfyap\" & isim & " - " & clsm & ".pdf" _
+            , Quality:=xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas _
+            :=False, OpenAfterPublish:=False 'buraya kopyalanacak path yazýlýr
+        ActiveWindow.Close
+   
+    
+    Else 'yani 2yse, 2 dýþýndakileri baþta eledim
+        ActiveWorkbook.ExportAsFixedFormat Type:=xlTypePDF, Filename:= _
+            "C:\pdfyap\" & isim & " - " & clsm & ".pdf" _
+            , Quality:=xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas _
+            :=False, OpenAfterPublish:=False 'buraya kopyalanacak path yazýlýr
+        ActiveWindow.Close
+    End If
+   
+Next I
+ 
+End Sub
+ 
+'Fonksiyon kategorileri
+'0 No category appears only in All
+'1 Financial
+'2 Date & Time
+'3 Math & Trig
+'4 Statistical
+'5 Lookup & Reference
+'6 Database
+'7 Text
+'8 Logical
+'9 Information
+'10 Commands normally hidden
+'11 Customizing normally hidden
+'12 Macro Control normally hidden
+'13 DDE/External normally hidden
+'14 User Defined default
+'15 Engineering only available if the Analysis Toolpak add-in is installed
+Sub makrokategori()
+    'user defined altýnda deðil de baþka bi yerde görünmesini istersen
+    Application.MacroOptions Macro:="volkitolki", Category:=14
+End Sub
+Sub Makroaçýklamasý()
+'bunu bi kere çalýþýtýrman yeterli, 2010 öncesi versiyon kullananalrda sorun olur.
+ 
+'Function süperlookup(alan As Range, Sütun As Range, aranan As Range)
+    'süperlookup = alan.Columns(1).Find(aranan).Offset(0, Sütun.Column - alan.Columns(1).Column).Value
+ 
+   Dim FuncName As String
+   Dim FuncDesc As String
+   Dim Category As String
+   Dim ArgDesc(1 To 3) As String '**********kaç parametre varsa**************
+ 
+ 
+   FuncName = "süperlookup" 'hangi fonksiyonsa onu yaz
+   FuncDesc = "Vlookup'ý kaydýrarak yaptýðýnýzda kolon numarlarýný tek tek deðiþtirmeniz zahmetinden kurtarýr"
+   Category = InputBox("Category seç:" & vbCrLf & "Finansalsa 1," & vbCrLf & "Tarihse 2," & vbCrLf & "Matematikse 3," & vbCrLf & "Ýstatistikiyse 4" & vbCrLf & "Lookupsa 5" & vbCrLf & "Metinse 7")
+  
+   ArgDesc(1) = "Alaný seçin."
+   ArgDesc(2) = "Sonuç olarak döndürlecek sütunu seçin"
+   ArgDesc(3) = "Aranacak hücreyi seçin"
+   'ArgDesc(4) = "En büyükler toplancaksa 1/True, en küçükler toplanacaksa 0/False girin"
+   'ArgDesc(5) = "Üçüncü kriteri seçin"
+   'ArgDesc(6) = "Dördüncü kriteri seçin"
+ 
+   Application.MacroOptions _
+      Macro:=FuncName, _
+      Description:=FuncDesc, _
+      Category:=Category, _
+      ArgumentDescriptions:=ArgDesc
+End Sub
+Function volkitolki(Hucre_grubu As Range, isaret As String)
+ 
+x = ""
+For Each k In Hucre_grubu
+    If Not IsEmpty(k) Then
+    x = x & k.Value & isaret
+    End If
+Next k
+ 
+volkitolki = Mid(x, 1, Len(x) - 1)
+End Function
+Function volkitolkiv(Hucre_grubu As Range)
+ 
+x = ""
+For Each k In Hucre_grubu
+    If Not IsEmpty(k) Then
+    x = x & k.Value & ","
+    End If
+Next k
+ 
+volkitolkiv = Mid(x, 1, Len(x) - 1)
+End Function
+Function arkarenk(hucre As Range)
+arkarenk = hucre.Interior.ColorIndex
+End Function
+Function onrenk(hucre As Range)
+onrenk = hucre.Font.ColorIndex
+End Function
+Function ilkkayýt(Hucre_grubu As Range)
+ 
+For Each k In Hucre_grubu
+    If IsEmpty(k) = True Then
+        x = 1 'biþey yapmaz, iften çýkýp for..nexte girer tekrar ve birsaða gider
+    Else
+        ilkkayýt = k.Column
+        Exit For
+    End If
+Next k
+ 
+End Function
+Function ilkeksi(Hucre_grubu As Range)
+ 
+ 
+For Each k In Hucre_grubu
+    If k.Value >= 0 Then
+        x = 1 'biþey yapmaz, iften çýkýp for..nexte girer tekrar ve birsaða gider
+    Else
+        ilkeksi = k.Column
+        Exit For
+    End If
+Next k
+ 
+End Function
+Function ilkartý(Hucre_grubu As Range)
+ 
+For Each k In Hucre_grubu
+    If k.Value <= 0 Then
+        x = 1 'biþey yapmaz, iften çýkýp for..nexte girer tekrar ve birsaða gider
+    Else
+        ilkartý = k.Column
+        Exit For
+    End If
+Next k
+ 
+End Function
+Function enküçükpozitif(Hucre_grubu As Range)
+a = 10000000000#
+ 
+For Each k In Hucre_grubu
+    If k.Value <= 0 Then
+        x = 1 'biþey yapmaz, iften çýkýp for..nexte girer tekrar ve birsaða gider
+    Else
+        If a > k.Value Then
+            a = k.Value
+        End If
+    End If
+   
+Next k
+enküçükpozitif = a
+End Function
+Function distinctadet(Hucre_grubu As Range, sk As Boolean)
+ 
+If sk = True Then
+    distinctadet = 0
+    For Each k In Hucre_grubu
+       
+        If k.Value = k.Offset(1, 0).Value Then
+            x = 9999
+        Else
+            distinctadet = distinctadet + 1
+           
+        End If
+    Next k
+Else
+    distinctadet = 0
+    For Each k In Hucre_grubu
+       
+        If k.Value = k.Offset(0, 1).Value Then
+            x = 9999
+        Else
+            distinctadet = distinctadet + 1
+           
+        End If
+    Next k
+End If
+End Function
+Function EnXTopla(alan As Range, N As Long, Optional x As Boolean) As Single
+Dim strAddress As String
+ 
+ 
+On Error Resume Next
+strAddress = alan.Address
+    If x = False Then
+        EnXTopla = Evaluate("=SUMPRODUCT((" _
+            & strAddress & ">=LARGE(" & strAddress & "," & N & "))*(" & strAddress & "))")
+    Else
+       EnXTopla = Evaluate("=SUMPRODUCT((" _
+            & strAddress & "<=SMALL(" & strAddress & "," & N & "))*(" & strAddress & "))")
+    End If
+End Function
+Function Çýlgýnlookup(Aranan_deðer As Variant, alan As Range, _
+                          Sütun As Integer, Optional çýlgýn_0_1 As Boolean)
+ 
+Dim wSheet As Worksheet
+Dim vFound
+ 
+On Error Resume Next
+ 
+ 
+    For Each wSheet In ActiveWorkbook.Worksheets
+        With wSheet
+        Set alan = .Range(Hucreler.Address)
+ 
+            vFound = WorksheetFunction.VLookup _
+            (Aranan_deðer, alan, _
+            Sütun, çýlgýn_0_1)
+ 
+        End With
+ 
+        If Not IsEmpty(vFound) Then Exit For
+    Next wSheet
+ 
+    Set alan = Nothing
+    Çýlgýnlookup = vFound
+ 
+End Function
+Function Çiftetelli(alan As Range, Sütun As Long, Ýlk_kriter, Ýkinci_kriter)
+ 
+Dim rCheck As Range, bFound As Boolean, lLoop As Long
+ 
+    On Error Resume Next
+ 
+    Set rCheck = alan.Columns(1).Cells(1, 1)
+    With WorksheetFunction
+ 
+        For lLoop = 1 To .CountIf(alan.Columns(1), Ýlk_kriter)
+ 
+           Set rCheck = alan.Columns(1).Find(Ýlk_kriter, rCheck, xlValues, xlWhole, xlNext, xlRows, False)
+           If UCase(rCheck(1, 2)) = UCase(Ýkinci_kriter) Then
+ 
+                bFound = True
+                Exit For
+           End If
+ 
+        Next lLoop
+ 
+    End With
+ 
+    If bFound = True Then
+        Çiftetelli = rCheck(1, Sütun)
+    Else
+     Çiftetelli = "#N/A"
+    End If
+ 
+End Function
+Function süperlookup(alan As Range, Sütun As Range, aranan As Range)
+On Error GoTo hata
+    süperlookup = alan.Columns(1).Find(aranan, lookat:=xlWhole).Offset(0, Sütun.Column - alan.Columns(1).Column).Value
+    Exit Function
+hata:
+    süperlookup = "Bulunamadý"
+End Function
+Function gün(hucre As Range)
+Select Case hucre.Value
+    Case 1
+        gün = "Pazartesi"
+    Case 2
+        gün = "Salý"
+    Case 3
+        gün = "Çarþamba"
+    Case 4
+        gün = "Perþembe"
+    Case 5
+        gün = "Cuma"
+    Case 6
+        gün = "Cumartesi"
+    Case 7
+        gün = "Pazar"
+    Case Else
+        gün = "*****Hata*****,Ben sadece 1 ve 7 arasýndaki günler için çalýþýrým"
+    End Select
+   
+End Function
+Function Üçlülookup(alan As Range, KaçýncýSütun As Long, Ýlk_kriter, Ýkinci_kriter, Üçüncü_kriter)
+ 
+ 
+Dim rCheck As Range, bFound As Boolean, lLoop As Long
+ 
+   
+ 
+    On Error Resume Next
+ 
+    Set rCheck = alan.Columns(1).Cells(1, 1)
+ 
+    With WorksheetFunction
+ 
+        For lLoop = 1 To .CountIf(alan.Columns(1), Ýlk_kriter)
+ 
+           Set rCheck = alan.Columns(1).Find(Ýlk_kriter, rCheck, xlValues, xlWhole, xlNext, xlRows, False)
+ 
+           If UCase(rCheck(1, 2)) = UCase(Ýkinci_kriter) And _
+                UCase(rCheck(1, 3)) = UCase(Üçüncü_kriter) Then
+ 
+                bFound = True
+ 
+                Exit For
+ 
+            End If
+ 
+        Next lLoop
+ 
+    End With
+ 
+ 
+ 
+    If bFound = True Then
+ 
+        Üçlülookup = rCheck(1, KaçýncýSütun)
+ 
+    Else
+ 
+        Üçlülookup = "#N/A"
+ 
+    End If
+ 
+ 
+ 
+End Function
+Function Dörtlülookup(alan As Range, KaçýncýSütun As Long, Ýlk_kriter, Ýkinci_kriter, Üçüncü_kriter, Dördüncü_kriter)
+ 
+Dim rCheck As Range, bFound As Boolean, lLoop As Long
+   
+ 
+    On Error Resume Next
+    Set rCheck = alan.Columns(1).Cells(1, 1)
+    With WorksheetFunction
+ 
+        For lLoop = 1 To .CountIf(alan.Columns(1), Ýlk_kriter)
+ 
+           Set rCheck = alan.Columns(1).Find(Ýlk_kriter, rCheck, xlValues, xlWhole, xlNext, xlRows, False)
+ 
+           If UCase(rCheck(1, 2)) = UCase(Ýkinci_kriter) And _
+                UCase(rCheck(1, 3)) = UCase(Üçüncü_kriter) And _
+                UCase(rCheck(1, 4)) = UCase(Dördüncü_kriter) Then
+ 
+                bFound = True
+                Exit For
+ 
+            End If
+ 
+        Next lLoop
+   
+    End With
+ 
+ 
+    If bFound = True Then
+        Dörtlülookup = rCheck(1, KaçýncýSütun)
+    Else
+        Dörtlülookup = "#N/A"
+    End If
+ 
+End Function
+Function Formül(cell As Range) As String
+   Formül = cell.Formula
+End Function
+Sub metniformüleçevir()
+'formül fonk ile formülü çýkardýn, bunlarýda deðiþilik yaptýn, þimdi tekrar formül yapcan
+'içlerien tek tek girip çýkman lazýmdý ya, ama bundan çok sayýda varsa bu makroyu kullan
+Dim k As Integer
+Dim I As Integer
+Dim a As String
+ 
+For k = 0 To 39
+    For I = 3 To 602
+        a = Cells(I, 106 + k)
+        Cells(I, 66 + k).FormulaLocal = a
+    Next I
+    I = 0
+Next k
+End Sub
+Function formüllümü(hucre As Range) As Boolean
+    'formüllümü = ActiveCell.Offset(0, -1).HasFormula
+    formüllümü = hucre.HasFormula
+End Function
+Function ay(hucre As Range)
+Select Case hucre.Value
+    Case 1
+        ay = "Ocak"
+    Case 2
+        ay = "Þubat"
+    Case 3
+        ay = "Mart"
+    Case 4
+        ay = "Nisan"
+    Case 5
+        ay = "Mayýs"
+    Case 6
+        ay = "Haziran"
+    Case 7
+        ay = "Temmuz"
+    Case 8
+        ay = "Aðustos"
+    Case 9
+        ay = "Eylül"
+    Case 10
+        ay = "Ekim"
+    Case 11
+        ay = "Kasým"
+    Case 12
+        ay = "Aralýk"
+    Case Else
+        ay = "*****Hata*****,Ben sadece 1 ve 12 arasýndaki aylar için çalýþýrým"
+    End Select
+   
+End Function
+Function aysonu(ay, yýl) As String
+Dim artýk As Boolean
+ 
+If (yýl / 4) = Int((yýl / 4)) Then
+    artýk = True
+Else
+    artýk = False
+End If
+ 
+Select Case ay.Value
+    Case 1
+        aysonu = "31.01." & yýl
+    Case 2
+        If artýk = True Then
+            aysonu = "29.02." & yýl
+        Else
+            aysonu = "28.02." & yýl
+        End If
+    Case 3
+        aysonu = "31.03." & yýl
+    Case 4
+        aysonu = "30.04." & yýl
+    Case 5
+        aysonu = "31.05." & yýl
+    Case 6
+        aysonu = "30.06." & yýl
+    Case 7
+        aysonu = "31.07." & yýl
+    Case 8
+        aysonu = "31.08." & yýl
+    Case 9
+        aysonu = "30.09." & yýl
+    Case 10
+        aysonu = "31.10." & yýl
+    Case 11
+        aysonu = "30.11." & yýl
+    Case 12
+        aysonu = "31.12." & yýl
+    Case Else
+        aysonu = "*****Hata*****,Ben sadece 1 ve 12 arasýndaki aylar için çalýþýrým"
+    End Select
+   
+End Function
+Function portföy(sube As Range, pktip As Range, pk_sýra As Range)
+ 
+portföy = WorksheetFunction.Rept("0", 4 - Len(sube)) & sube & WorksheetFunction.Rept("0", 4 - Len(pktip)) & pktip & WorksheetFunction.Rept("0", 4 - Len(pk_sýra)) & pk_sýra
+ 
+End Function
+Function portföy12(pk As Range)
+    portföy12 = WorksheetFunction.Rept("0", 12 - Len(pk)) & pk
+End Function
+Function uçhariçtop(alan As Range, Uç As Variant, Adet As Variant, Büyüklük As Boolean)
+ 
+If Büyüklük = True Then 'en büyükleri
+    For I = 1 + Uç To Adet + Uç
+        uçhariçtop = uçhariçtop + WorksheetFunction.Large(alan, I)
+    Next I
+Else 'en küçükleri
+    For I = 1 + Uç To Adet + Uç
+        uçhariçtop = uçhariçtop + WorksheetFunction.Small(alan, I)
+    Next I
+End If
+End Function
+Function uçhariçort(alan As Range, Uç As Variant)
+Dim aratoplam As Double
+Dim enbüyükler As Double
+Dim enküçükler As Double
+ 
+For I = 1 To Uç
+    enbüyükler = enbüyükler + WorksheetFunction.Large(alan, I)
+Next I
+   
+For I = 1 To Uç
+    enküçkler = enküçkler + WorksheetFunction.Small(alan, I)
+Next I
+    
+aratoplam = WorksheetFunction.Sum(alan) - enbüyükler - enküçkler
+uçhariçort = aratoplam / (alan.Count - Uç * 2)
+ 
+End Function
+Function pksql(pk As Range)
+    pksql = "'" & pk & "'"
+End Function
+Function ozan_ms(alan As Range)
+    ozan_ms = Val(Left(alan, 3))
+End Function
+Function ozan_sb(alan As Range)
+    ozan_sb = Val(Mid(alan, 7, 4))
+End Function
+Function pkatama(mbb As Range, kaynak As Range, hedef As Range)
+ 
+pkatama = WorksheetFunction.Rept("0", 10 - Len(mbb)) & mbb & ";" & Left(kaynak, 4) & ";" & Mid(kaynak, 5, 4) & ";" & Right(kaynak, 4) & ";" & Left(hedef, 4) & ";" & Mid(hedef, 5, 4) & ";" & Right(hedef, 4)
+ 
+End Function
+Function karhg(gerceklesen As Range, hedef As Range)
+If hedef > 0 Then
+karhg = gerceklesen / hedef
+Else
+karhg = 2 - gerceklesen / hedef
+End If
+End Function
+Function tekmiçiftmi(hucre As Range)
+If WorksheetFunction.IsOdd(hucre) Then
+tekmiçiftmi = "Tek"
+Else
+tekmiçiftmi = "Çift"
+End If
+End Function
+Function texttodate(alan As Range)
+texttodate = Format(alan, "dd.mm.yyyy")
+'WorksheetFunction.Date(Right(alan, 4), Mid(alan, 4, 2), Left(alan, 2))
+End Function
+Function süpertrim(hucre As Range)
+    süpertrim = Val(WorksheetFunction.Trim(WorksheetFunction.Substitute(hucre, Chr(160), "")))
+End Function
+Function ifnegatif(Formul_or_Deger As Double, neolsun As Variant)
+    If Formul_or_Deger < 0 Then
+        ifnegatif = neolsun
+    Else
+        ifnegatif = Formul_or_Deger
+    End If
+End Function
+Function ifsýfýr(Formul_or_Deger As Double, neolsun As Variant)
+    If Formul_or_Deger = 0 Then
+        ifsýfýr = neolsun
+    Else
+        ifsýfýr = Formul_or_Deger
+    End If
+End Function
+Function ifxdenküçükse(Formul_or_Deger As Double, x As Double, neolsun As Variant)
+    If Formul_or_Deger < x Then
+        ifxdenküçükse = neolsun
+    Else
+        ifxdenküçükse = Formul_or_Deger
+    End If
+End Function
+Function ifxdenbüyükse(Formul_or_Deger As Double, x As Double, neolsun As Variant)
+    If Formul_or_Deger > x Then
+        ifxdenbüyükse = neolsun
+    Else
+        ifxdenbüyükse = Formul_or_Deger
+    End If
+End Function
+Function formuldegis(hucre As Range, onek As String, sonek As String)
+    F = hucre.Formula
+    F = Mid(F, 2, 1000)
+    x = WorksheetFunction.Substitute(F, ",", ";")
+    formuldegis = onek & x & sonek
+End Function
+Function sondan_x_karakter(hucre As Range, x As Integer, tip As Boolean)
+    If tip = True Then
+        sondan_x_karakter = Val(Mid(hucre, Len(hucre.Value) - x, x))
+    Else
+        sondan_x_karakter = Mid(hucre, Len(hucre.Value) - x, x)
+    End If
+End Function
+Function hýzlýlookup(aranan As Range, alan As Range, kolon As Integer)
+ 
+If WorksheetFunction.VLookup(aranan, alan, 1, 1) = aranan Then
+    hýzlýlookup = WorksheetFunction.VLookup(aranan, alan, kolon, 1)
+Else
+    hýzlýlookup = "NA"
+End If
+End Function
+Function subenin_bmiyleri(sube As Range)
+    subenin_bmiyleri = WorksheetFunction.Rept("0", 4 - Len(sube)) & sube & ".10@akbank.local"
+End Function
+Function subenin_muduru(sube As Range)
+    subenin_muduru = WorksheetFunction.Rept("0", 4 - Len(sube)) & sube & ".2@akbank.local"
+End Function
+Function subenin_1e1miyleri(sube As Range)
+    subenin_1e1miyleri = WorksheetFunction.Rept("0", 4 - Len(sube)) & sube & ".1@akbank.local"
+End Function
+ 
+ 
+Sub fiiliyaz()
+ 
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\Personel bilgisi.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    tip = InputBox("Miy tipini seçin:" & vbCrLf & "BMIY için 7," & vbCrLf & "BBY için 13," & vbCrLf & "BBMIY için 8," & vbCrLf & "KOBIMIY için 6," & vbCrLf & "TMIY için 5" & vbCrLf & "Toplam MIY için 9" & vbCrLf & "Giþeci için 11")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]personel adet'!C2:C13," & tip & ",0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    dosya.Close savechanges:=False
+ 
+MsgBox ("Bilginin ne kadar güncellendiðini görmek için Personel tablosunu açýp güncellenme tarihine bakýn.")
+ 
+End Sub
+Sub normyaz()
+ 
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\Personel bilgisi.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    tip = InputBox("Miy tipini seçin:" & vbCrLf & "BMIY için 5," & vbCrLf & "BBMIY için 6," & vbCrLf & "KOBIMIY için 7," & vbCrLf & "Karma TMIY için 4")
+ 
+ 
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]Normflag'!C1:C8," & tip & ",0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    dosya.Close savechanges:=False
+   
+MsgBox ("Bu makro, normun olup olmadýðýný gösterir. 1 var, 0 yok demektir. Bilginin ne kadar güncellendiðini görmek için Personel tablosunu açýp güncellenme tarihine bakýn.")
+ 
+ 
+End Sub
+ 
+ 
+Sub bolgedenadyaz()
+'bölge kodundan bölge adý yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("Bölge kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni bölgeler'!C1:C2,2,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    dosya.Close savechanges:=False
+   
+    
+End Sub
+Sub bolgepazyaz()
+'bölge kodundan bölge pazarlamacýlarý yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("Bölge kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]Bölge Ekip'!C1:C5,3,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+        
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+ 
+Sub bolgemuduryaz()
+'bölge kodundan bölge müdürü yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+   a = InputBox("Bölge kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]Bölge Ekip'!C1:C5,4,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+Sub bölgeadyaz()
+'þube kodundan bölge adý yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C4,4,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+Sub bölgekodyaz()
+'þube kodundan bölge kodu yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+       a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C4,3,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+dosya.Close savechanges:=False
+End Sub
+Sub þubeadyaz()
+'þube kodundan þube ad yazar
+Set Aktif = ActiveWorkbook
+    Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C4,2,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+        
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+ 
+dosya.Close savechanges:=False
+End Sub
+Sub müdürsicilyaz()
+'þube kodundan müdür sicili yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\Personel bilgisi.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]þube md'!C3:C5,3,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+Sub müdüradyaz()
+'þube kodundan müdür adý yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\Personel bilgisi.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("miy sicili kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]þube md'!C3:C6,4,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+Sub sicildensubeyaz()
+'sicilden þube kodu yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\Personel bilgisi.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("miy sicili kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]Anadata'!C2:C3,2,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+ 
+Sub sicildengorevyaz()
+'sicilden þube kodu yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\Personel bilgisi.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("miy sicili kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]Anadata'!C5:C8,4,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+Sub sicilden_hepsi()
+Set Aktif = ActiveWorkbook
+answer = MsgBox("Sicil solda ve yeteri kadar kolon açtýn mý evlat?" & vbCrLf & "Bak bu iþin þakasý yok, makrolarýn geri dönüþü olmaz.", vbYesNo)
+If answer = 6 Then
+        answer2 = MsgBox("Yes diyon da neye yes diyon, açýlacak kolonlarý söylüyorum, bi kontrol et bakim. " & vbCrLf & " 1-adsoyad, 2-þube kodu, 3-þube adý, 4-bölge kodu, 5-bölge adý 6-Görev adý", vbYesNo)
+        If answer2 = 6 Then
+            GoTo ilerle
+        Else
+            MsgBox "Beceriksiz seni, bi kere de doðru yap þu iþi be, otur sýfýr"
+            Exit Sub
+        End If
+Else
+    MsgBox "Otur yerine, canýmý sýkma benim. Sen önce kolonlarýný açmayý öðren, sonra makro çalýþtýr." & vbCrLf & " Bi de tüm bilgileri tek seferde yazacakmýþ! Makro senin neyine yav, yürü git nane limon kaynat yürü git!!!"
+    Exit Sub
+End If
+ 
+ilerle:
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\Personel bilgisi.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("miy sicili kaç sütun solda, yine eksiyle yazýn?")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]Anadata'!C2:C8,5,0)"
+    Selection.Offset(0, 1).FormulaR1C1 = "=VLOOKUP(RC[" & (Abs(a) + 1) * -1 & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]Anadata'!C2:C8,2,0)"
+    Selection.Offset(0, 2).FormulaR1C1 = "=VLOOKUP(RC[" & (Abs(a) + 2) * -1 & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]Anadata'!C2:C8,3,0)"
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set subeler = ActiveWorkbook
+Aktif.Activate
+    Selection.Offset(0, 3).FormulaR1C1 = "=VLOOKUP(RC[-2],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C4,3,0)"
+    Selection.Offset(0, 4).FormulaR1C1 = "=VLOOKUP(RC[-3],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C4,4,0)"
+    Selection.Offset(0, 5).FormulaR1C1 = "=VLOOKUP(RC[" & a - 5 & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]Anadata'!C2:C8,7,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Set basla = Range(Selection, Selection.End(xlToRight))
+            Set bitir = Range(ALT.Offset(0, 1), Cells(ALT.Row, ActiveCell.Offset(0, 4).Column))
+            basla.Select
+            Selection.AutoFill Destination:=Range(basla, bitir)
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+subeler.Close savechanges:=False
+End Sub
+Sub sicildenadyaz()
+'sicilden ad yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\Personel bilgisi.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("miy sicili kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[Personel bilgisi.xls]Anadata'!C5:C6,2,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+Sub durumyaz()
+'þube kodundan þubenin durumunu yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C5,5,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+dosya.Close savechanges:=False
+End Sub
+Sub tarihyaz()
+'þube kodundan açýlýþ tarihi yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C7,7,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Selection.NumberFormat = "m/d/yyyy"
+   
+dosya.Close savechanges:=False
+End Sub
+Sub türyaz()
+'þube kodundan þube türü yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C8,8,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+    
+dosya.Close savechanges:=False
+End Sub
+Sub tipyaz()
+'þube kodundan þube türü yazar
+Set Aktif = ActiveWorkbook
+Workbooks.Open Filename:= _
+        "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Set dosya = ActiveWorkbook
+Aktif.Activate
+ 
+ 
+    a = InputBox("þube kodu kaç sütun saðda, soldaysa - ile göster ")
+    Selection.FormulaR1C1 = "=VLOOKUP(RC[" & a & "],'\\B35516\önemlÝ dosyalar\[ÞUBELER.xls]yeni þubeler'!C1:C8,6,0)"
+    x = 0
+    If ActiveCell.Column = 1 Then
+       
+        GoTo ilksutun
+    Else
+        If IsEmpty(ActiveCell.Offset(0, -1)) Then
+       
+            Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+           
+        Else
+          
+            Set ALT = ActiveCell.Offset(0, -1).End(xlDown)
+            Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, 1))
+           
+        End If
+        x = 1
+    End If
+   
+ilksutun:
+      If x = 1 Then GoTo ATLA
+     
+      Set ALT = ActiveCell.Offset(0, 1).End(xlDown)
+      Selection.AutoFill Destination:=Range(Selection, ALT.Offset(0, -1))
+ATLA:
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+   
+    
+dosya.Close savechanges:=False
+End Sub
+ 
+ 
+Sub kpimailat()
+Dim OutApp As Object
+Dim OutMail As Object
+Dim alicilar As Object
+Dim degisken() As Variant
+Dim siciller() As Variant
+ReDim degisken(0 To 22)
+ReDim siciller(0 To 22)
+ 
+Workbooks.Open Filename:= _
+    "\\B35516\önemlÝ dosyalar\ÞUBELER.xls"
+Sheets("Bölge Ekip").Select
+Range("a2").Select
+ 
+For x = 0 To 22
+    degisken(x) = ActiveCell.Value
+    siciller(x) = ActiveCell.Offset(0, 4).Value
+    ActiveCell.Offset(1, 0).Select
+Next x
+ActiveWorkbook.Close savechanges:=False
+ 
+For x = 0 To 22
+        Workbooks.Open Filename:= _
+                        "Q:\Bireysel Bankacýlýk Satýþ Yönetimi\PERFORMANS TAKÝP\GÜNLÜK ÇALIÞMALAR\Abaküs for Bölge\dosyalar\" & degisken(x) & "-Abaküs" & " - " & Date - 1 & " Sonuçlarý.xlsx"
+                   
+        On Error GoTo cleanup
+        Set OutApp = CreateObject("Outlook.Application")
+       
+        With Application
+            .EnableEvents = False
+            .ScreenUpdating = False
+        End With
+       
+        Set OutMail = OutApp.CreateItem(0)
+        'Set alicilar = OutMail.Recipients.Add(siciller(X))
+       
+ 
+        On Error Resume Next
+        With OutMail
+            .To = siciller(x)
+            .Cc = "5104@akbank.local"
+            .SentOnBehalfOfName = "BBSatis.Yonetimi@akbank.com"
+            .Subject = "Abaküs - BMIY KPI Performansý hk"
+            .HTMLBody = "Deðerli Bölge Yöneticilerimiz," & Chr(14) & Chr(14)
+            .HTMLBody = .HTMLBody + "Bireysel Miylerinizin dün itibarýyle KPI kalemlerindeki günlük, haftalýk ve aylýk performanslarýný ekli dosyada bulabilirsiniz." & Chr(14) & Chr(14)
+            .HTMLBody = .HTMLBody + "<B>Saygýlarýmýzla, </B>" & Chr(14)
+            .HTMLBody = .HTMLBody + "<B><FONT COLOR=""Red"">" & "Bireysel Bankacýlýk Satýþ Yönetimi </FONT></B>"
+            .Attachments.Add ActiveWorkbook.FullName
+            .Display 'deneme içindir, iþin bitince tick koy
+            'alicilar.Resolve
+            'If Not alicilar.Resolved Then
+            '   GoTo sonraki
+            'End If
+            .Send
+        End With
+        On Error GoTo 0
+sonraki:
+        Set OutMail = Nothing
+        ActiveWorkbook.Close savechanges:=False
+ 
+Next x
+ 
+cleanup:
+    Set OutApp = Nothing
+    With Application
+        .EnableEvents = True
+        .ScreenUpdating = True
+    End With
+ 
+End Sub
+ 
+ 
+Sub for_each()
+    For Each k In Range(alan)
+        If k.Interior.ColorIndex = ESKIRENKNO Then k.Interior.ColorIndex = YENIRENKNO
+   
+    Next k
+End Sub
+Sub formatyap()
+    Cells(1, 4).Value = "dfads-" & Format(1345253, "#,##0")
+    Cells(1, 5).Value = "dfads-" & Format(Date, "dddd, d mmmmmm yyyy")
+End Sub
+Sub Enable_Menu_Bar()
+    CommandBars("Worksheet Menu Bar").Enabled = True
+End Sub
+Sub Enable_formula_Bar()
+    Application.DisplayFormulaBar = True
+End Sub
+Private Sub Workbook_SheetSelectionChange(ByVal Sh As Object, ByVal Target As Range)
+'BU AYNI DOSYA ÝÇÝNDE COPY-PASTE YAPOMAYI ENGELLER
+Application.CutCopyMode = False
+End Sub
+Private Sub Workbook_Deactivate()
+'BU ÝSE BAÞKA DOSYAYA COPY-PSTE YAPMAYI
+ 
+Application.CutCopyMode = False
+End Sub
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+ 
+a = MsgBox("Formülasyonu copy paste valur yaptýn mý", vbYesNo)
+If a = 6 Then
+    MsgBox ("aferin")
+    Cancel = False
+   
+Else
+    MsgBox ("o zaman hallet")
+    Cancel = True
+End If
+ 
+End Sub
+Sub worksit_fonksiyon()
+    'sanki excel fonsikyonu kullanmýþ gibi oluyorsun
+    MsgBox WorksheetFunction.Sum(Range("a1:a10"))
+End Sub
+Sub uyarý_cýkmasýn()
+    'bunu false yaparsan uyarý çýkmasýn demiþ olursun ve sistem
+    'default deðer ne ise onu baz alýr.
+    Application.DisplayAlerts = False
+    Sheets(2).Delete
+    'ama bu update olayý için iþe yaramaz, onun için komutun kendi özelliðini kullan. ör:update=0
+    'Workbooks.Open Filename:="d:\book84.xls", UpdateLinks:=0
+       
+End Sub
+Sub excel_donmasýn()
+Dim i As Integer
+For i = 1 To 15000
+    Cells(1, 1) = i
+    DoEvents 'excele müdahale edebilirsin
+Next i
+   
+End Sub
+ 
+Sub instr_fonksiyonu()
+'verilen iki ifadeden birinci içinde ikincisini arar ve sýrasýný bulur
+MsgBox InStr("ahmet", "e")
+End Sub
+Function STATFUNCTION(rng, op)
+    Select Case UCase(op)
+        Case "SUM"
+            STATFUNCTION = Application.Sum(rng)
+        Case "AVERAGE"
+            STATFUNCTION = Application.Average(rng)
+        Case "MEDIAN"
+            STATFUNCTION = Application.Median(rng)
+        Case "MODE"
+            STATFUNCTION = Application.Mode(rng)
+        Case "COUNT"
+            STATFUNCTION = Application.Count(rng)
+        Case "MAX"
+            STATFUNCTION = Application.Max(rng)
+        Case "MIN"
+            STATFUNCTION = Application.Min(rng)
+        Case "VAR"
+            STATFUNCTION = Application.Var(rng)
+        Case "STDEV"
+            STATFUNCTION = Application.StDev(rng)
+        Case Else
+            STATFUNCTION = Evaluate("NA()")
+    End Select
+End Function
+ 
+Sub müzikçaldýr()
+Dim prog As String
+Dim adres As String
+adres1 = """F:\müzik\club\Andain - Beautiful Things.mp3"""
+adres2 = """" & Range("a1") & """"
+prog = "C:\Program Files\Winamp\winamp.exe "
+Shell prog & adres2, vbMinimizedNoFocus
+ 
+'Range("b1") = adres1
+'Range("b2") = adres2
+ 
+End Sub
+ 
+ 
+Sub Dosya_Ýsimleri()
+Dim ds, dc, f, s
+Set ds = CreateObject("Scripting.FileSystemObject")
+Set f = ds.GetFolder("F:\müzik\club")
+Set dc = f.Files
+For Each dosya In dc
+C = C + 1
+Cells(C, 1) = dosya.Name
+Next
+End Sub
+Sub clipbordsormasýn()
+ 
+    Application.DisplayClipboardWindow = False
+    Application.DisplayAlerts = False 'clipbord sormasýn diye
+    blg.Close savechanges:=False
+    Application.DisplayAlerts = True 'tekrar eski haline geitmrke için
+End Sub
+Sub sayfaisimleriyaz()
+For i = 1 To Sheets.Count - 1
+    Cells(i, 1) = Sheets(i + 1).Name
+Next i
+ 
+End Sub
+ 
+Sub formula()
+ActiveCell.formula = "=SUM(R" & satýr & "C" & SUTUN & ":OFFSET(RC,0,-2))/RC[-1]"
+End Sub
+Function ilkkayýtdeðer(hucre As Range)
+'buna sonra bak olmuyor, aþaðý sürükleyince ilk baþtakinin satýrýna bakýyor, activecell iþe yaramýyor
+For Each k In hucre
+    If IsEmpty(k) = True Then
+        x = 1 'biþey yapmaz, iften çýkýp for..nexte girer tekrar ve birsaða gider
+    Else
+        a = k.Column
+       
+        Exit For
+    End If
+Next k
+ 
+ilkkayýtdeðer = Cells(ActiveCell.Row, 1).Offset(0, a - 1).Value
+'Selection.FormulaR1C1 = "=OFFSET(RC[-8];0;RC[-1]-1)"
+ 
+ 
+End Function
+Sub sýrayla_yazdýr()
+Set anasayfa = ActiveSheet
+Set brmler = Sheets("birimler")
+ 
+brmler.Select
+Cells(1, 1).Select
+ 
+For i = 1 To ActiveCell.End(xlDown).Row - 1
+    brmler.Select
+    ActiveCell.Offset(1, 0).Select
+    brm = ActiveCell.Value
+   
+    anasayfa.Select
+    Range("a1") = brm
+   
+    ActiveWindow.SelectedSheets.PrintOut Copies:=1, Collate:=True, _
+        IgnorePrintAreas:=False
+Next i
+ 
+End Sub
+Sub sýrayla_kaydet()
+Application.DisplayAlerts = False
+ 
+Set brmler = ActiveWorkbook
+Cells(1, 1).Select
+ 
+For i = 1 To ActiveCell.End(xlDown).Row - 1
+    brmler.Activate
+    ActiveCell.Offset(1, 0).Select
+    brm = ActiveCell.Value
+   
+    Workbooks.Open Filename:= _
+        "Q:\Bireysel Bankacýlýk Satýþ Yönetimi\AYLIK ÇALIÞMALAR\AYLIK ÇALIÞMALAR\2012\042012\mentor topl\mentor.xlsx"
+    Sheets(1).Select 'format sayfasý hangisiyse
+    Range("a1") = brm
+   
+    'bölge kodlarýný falan temizlik
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("a1").ClearContents
+   
+'diðer syfalarý siliyoruz ki yer kaplamasýn
+Do
+  Sheets(2).Delete
+Loop Until Sheets.Count = 1
+ 
+    ActiveWorkbook.SaveAs Filename:="Q:\Bireysel Bankacýlýk Satýþ Yönetimi\AYLIK ÇALIÞMALAR\AYLIK ÇALIÞMALAR\2012\042012\mentor topl\" & brm & ".xlsx"
+    ActiveWorkbook.Close
+    'ayný zamnda print alýnacaksa burayý da aç
+    'ActiveWindow.SelectedSheets.PrintOut Copies:=1, Collate:=True, _
+        IgnorePrintAreas:=False
+Next i
+ 
+Application.DisplayAlerts = True
+ 
+End Sub
+Sub formulrenklendir()
+Set alan = Application.InputBox("alaný seç", Type:=8)
+ 
+For Each h In alan
+    If h.HasFormula Then
+        h.Interior.ColorIndex = 50
+    End If
+Next h
+End Sub
+Sub formüldetýrnak()
+'Private Sub Worksheet_Change(ByVal Target As Range)
+      
+    If Target.Address = "$B$6" Then
+        Range("c6").formula = "=IF(B6=""Herhangi X ay"", ""Ay gir"" ,"""")"
+    End If
+      
+End Sub
+ 
+Sub AddToRightClick()
+ 
+    With Application.CommandBars("Cell")
+ 
+        .Reset
+ 
+        With .Controls.Add _
+             (Type:=msoControlButton, Temporary:=False)
+ 
+            .caption = "Ýçerik>Comment" 'change here to name as you like
+ 
+            .OnAction = "icerik_comment" 'Change here to the your Macro1
+ 
+        End With
+ 
+    End With
+ 
+End Sub
+Sub ResetRightClick()
+ 
+    Application.CommandBars("cell").Reset
+ 
+End Sub
+ 
+Sub pivotduzelt()
+'
+' pivotduzelt Macro
+'
+ 
+'
+    With ActiveSheet.PivotTables(1)
+        .InGridDropZones = True
+        .RowAxisLayout xlTabularRow
+    End With
+   
+    Range("A4").Select
+    For i = 1 To ActiveSheet.PivotTables(1).PivotFields.Count
+        ActiveSheet.PivotTables(1).PivotFields(i).Subtotals = _
+        Array(False, False, False, False, False, False, False, False, False, False, False, False)
+    Next i
+End Sub
+ 
+Public Function FileFolderExists(strFullPath As String) As Boolean
+'Author       : Ken Puls (www.excelguru.ca)
+'Macro Purpose: Check if a file or folder exists
+    On Error GoTo EarlyExit
+    If Not Dir(strFullPath, vbDirectory) = vbNullString Then FileFolderExists = True
+   
+EarlyExit:
+    On Error GoTo 0
+End Function
+ 
+Public Sub BOSLUKSIL()
+ 
+Set ilk = Application.InputBox("ÝLK HUCREYÝ SEÇ", Type:=8)
+Set SON = Application.InputBox("SON HUCREYÝ SEÇ", Type:=8)
+ 
+ustsatir = ilk.Row
+altsatir = SON.Row
+ 
+ 
+For i = ustsatir To altsatir
+    If IsEmpty(Cells(i, 1)) = True Then
+        Rows(i).Delete
+        altsatir = altsatir - 1
+        i = i - 1
+    End If
+    
+    If i = altsatir Then Exit Sub
+Next i
+Range("A1").Activate
+    
+End Sub
+Public Sub bossutunsil()
+ 
+ 
+Set ilk = Application.InputBox("ÝLK HUCREYÝ SEÇ", Type:=8)
+Set SON = Application.InputBox("SON HUCREYÝ SEÇ", Type:=8)
+ 
+ilksut = ilk.Column
+sonsut = SON.Column
+ 
+ 
+For i = ilksut To sonsut
+    If IsEmpty(Cells(1, i)) = True Then
+        Columns(i).Delete
+        sonsut = sonsut - 1
+        i = i - 1
+    End If
+   
+    If i = sonsut Then Exit Sub
+Next i
+Range("A1").Activate
+    
+End Sub
+Sub filtredeselect()
+    filtre = ActiveCell.Value
+    filtreici = "<>" & filtre
+    Sütun = ActiveCell.Column
+    Selection.AutoFilter Field:=Sütun, Criteria1:=filtreici, Operator _
+        :=xlAnd
+    Range("a2").Select
+    Range(Selection, Selection.End(xlDown)).EntireRow.Select
+    Selection.SpecialCells(xlCellTypeVisible).Select
+    Selection.Delete Shift:=xlUp
+    Selection.AutoFilter
+End Sub
+ 
+Sub çokluyaz()
+a = InputBox("kaç dosya için çalýþayým")
+For i = 1 To a
+ActiveWindow.SelectedSheets.PrintOut Copies:=1, Collate:=True
+ActiveWorkbook.Close
+Next i
+End Sub
+Sub RENKDEGISTIR()
+ 
+cevap = MsgBox("BÝR HÜCREYÝ OLMASINI ÝSTEDÝÐÝN RENGE BOYADIN MI?", vbYesNo)
+ 
+If cevap = 6 Then ' YES DEMEK OLUYO
+    GoTo devamet
+Else
+    MsgBox "O ZAMAN BOYA VE TEKRAR ÇALIÞITIR"
+    Exit Sub
+End If
+ 
+devamet:
+ 
+ 
+Set GECICIALAN = Application.InputBox("RENK DEÐÝÞÝKLÝÐÝ YAPACAÐIN ALANI SEÇ", Type:=8)
+alan = GECICIALAN.Address
+ 
+Set b = Application.InputBox("RENGÝNÝ DEÐÝÞTÝRECEÐÝN BÝR HÜCREYÝ SEÇ", Type:=8)
+ESKIRENKNO = b.Interior.ColorIndex
+Set a = Application.InputBox("OLMASINI ÝSTEDÝÐÝNÝZ RENGÝN OLDUÐU HÜCREYÝ SEÇÝN", Type:=8)
+YENIRENKNO = a.Interior.ColorIndex
+ 
+For Each k In Range(alan)
+    If k.Interior.ColorIndex = ESKIRENKNO Then k.Interior.ColorIndex = YENIRENKNO
+ 
+Next k
+ 
+End Sub
+Private Sub Workbook_SheetChange(ByVal sayfa As Object, ByVal Target As Range)
+Dim i As Long
+ 
+MsgBox ("filtre kondu")
+Exit Sub
+ 
+Set sayfa = ActiveSheet
+If sayfa.FilterMode Then 'filtre düðmesine basýlmýþ olabilir ama hiç filreleme yapýlmadýysa falsedur
+ 
+    If Intersect(Target, sayfa.AutoFilter.Range) Is Nothing Then
+        MsgBox ("deðiþen alan range içinde deðil") 'bu satýr kontrol amaçlý sonra kaldýr
+        Exit Sub
+    Else
+        MsgBox ("d")
+       With sayfa.AutoFilter
+          For i = 1 To .Filters.Count
+             If .Filters(i).On Then
+                .Range(1, i).Interior.ColorIndex = 6
+             End If
+          Next i
+       End With
+    End If
+Else
+    'tüm filtre kalktý ama autofilter açýksa ayrý aksiyon
+    'autofilter tamamaen kalktýysa ayrý aksiyon
+    MsgBox ("slm")
+   Exit Sub
+End If
+ 
+ 
+End Sub
+Public Sub aktifcellfiltre()
+    On Error GoTo k
+    x = ActiveCell.Value
+    ActiveCell.CurrentRegion.AutoFilter Field:=ActiveCell.Column, Criteria1:="=" & x
+    Exit Sub
+k:
+    x = "#N/A"
+    ActiveCell.CurrentRegion.AutoFilter Field:=ActiveCell.Column, Criteria1:="=" & x
+End Sub
+Sub nameyapma()
+'bireyselse 7yle baþlasýn, birebirse 8le
+For i = 79 To 366
+'For i = 81 To 927
+    Cells(i, 8).Select
+    If Not IsEmpty(Cells(i, 9)) Then Range(Selection, Selection.End(xlToRight)).Select
+    Selection.Name = "zuzu" & Cells(i, 7).Value
+Next i
+ 
+End Sub
+ 
+
+
+
+
+
+
+
+Deðerli görüþ ve önerilerinizi internet sayfamýzdaki Bize Ulaþýn bölümünden iletebilirsiniz.
+Bu e-posta ve muhtemel eklerinde verilen bilgiler kiþiye özel ve gizli olup, yalnýzca mesajda belirlenen alýcý ile ilgilidir. Size yanlýþlýkla ulaþmýþsa lütfen göndericiye bilgi veriniz, mesajý siliniz ve içeriðini baþka bir kiþiye açýklamayýnýz, herhangi bir ortama kopyalamayýnýz. Bu mesaj veya ekleri, aksi sözleþme ile veya mesaj içeriðinde açýkça belirtilmedikçe, herhangi bir iþleme iliþkin olarak Bankamýz adýna herhangi bir teklif, kabul veya teyit amacý taþýmamaktadýr. Verilen bilgilerin doðru veya eksiksiz olmasýna yönelik bir garanti verilmemekte olup, bilgiler önceden bildirilmeksizin deðiþtirilebilecektir. Bu mesajýn içeriði Bankamýzýn resmi görüþlerini yansýtmayabileceðinden Akbank T.A.Þ. hiçbir hukuki sorumluluðu kabul etmez.
+
+Akbank T.A.Þ Sabancý Center 4.Levent, 34330 Ýstanbul - Ticaret Sicil Memurluðu: Ýstanbul - Sicil Numarasý: 90418 - www.akbank.com
+You are kindly requested to share your valuable views and opinions to us via the Contact Us section on our website.
+The information provided in this e-mail and any attachments it may contain is proprietary and confidential, and is only related with the receiver of this message. If it is sent to you by mistake; please inform the sender, delete the message and do not explain its contents to anyone, and do not copy it in any form. Unless otherwise provided by contract, this message is not intended to act as a banking transaction such as an offer, purchase or sale of a financial transaction or confirmation of a remittance. No guarantee is given for the accuracy or integrity of any or all information provided herein and such information may be changed without prior notice. Akbank T.A.Þ. acknowledges no legal responsibility whatsoever as may be related with or arise out of the content of this message as it may not reflect the official policy of our Bank. 
+
+Akbank T.A.Þ Sabancý Center 4.Levent, 34330 Ýstanbul - Trade Registry Office: Ýstanbul - Registration Number: 90418 - www.akbank.com

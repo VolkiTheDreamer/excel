@@ -1,0 +1,167 @@
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\bin\Debug\Excelent.dll
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\bin\Debug\Excelent.pdb
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\bin\Debug\Excelent.xml
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\bin\Debug\Excelent.dll.manifest
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\bin\Debug\Excelent.vsto
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.rbExcelent.resources
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.Resources.resources
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.vbproj.GenerateResource.Cache
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.dll
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.xml
+c:\users\volkan\documents\visual studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.pdb
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.frmBolme.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\Excelent\Excelent\bin\Debug\Excelent.dll.config
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.frmFrequentFile.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.frmSubelerPersonel.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.vbproj.ResolveComReference.cache
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.frmBatchMail.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.frmBatchMailFirstForm.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\Excelent\Excelent\obj\Debug\Excelent.frmAbout.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll.config
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.pdb
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.xml
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll.manifest
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.vsto
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.vbprojResolveAssemblyReference.cache
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.vbproj.ResolveComReference.cache
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmAbout.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBatchMail.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBatchMailFirstForm.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBolme.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmFrequentFile.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmSubelerPersonel.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.rbExcelent.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.Resources.resources
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.vbproj.GenerateResource.Cache
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.dll
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.xml
+C:\Users\Volkan\Documents\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.pdb
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\bin\Debug\Excelent.dll.config
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\bin\Debug\Excelent.dll
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\bin\Debug\Excelent.pdb
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\bin\Debug\Excelent.xml
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\bin\Debug\Excelent.dll.manifest
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\bin\Debug\Excelent.vsto
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.vbproj.ResolveComReference.cache
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.frmAbout.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.frmBatchMail.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.frmBatchMailFirstForm.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.frmBolme.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.frmFrequentFile.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.frmSubelerPersonel.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.rbExcelent.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.Resources.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.vbproj.GenerateResource.Cache
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.dll
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.xml
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.pdb
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\Excelent from onedrive 26.12\Excelent\obj\Debug\Excelent.vbprojResolveAssemblyReference.cache
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll.config
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.pdb
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.xml
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll.manifest
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.vsto
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.vbproj.ResolveComReference.cache
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmAbout.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBatchMail.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBatchMailFirstForm.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBolme.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmFrequentFile.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmSubelerPersonel.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.rbExcelent.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.Resources.resources
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.vbproj.GenerateResource.Cache
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.dll
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.xml
+C:\Users\Volkan\OneDrive\0-uygulama örneklerim\Visual Studio\Visual Studio 2013\Projects\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.pdb
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll.config
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.pdb
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.xml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.dll.manifest
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Excelent.vsto
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Excel.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.VisualStudio.Tools.Applications.Runtime.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.VisualStudio.Tools.Applications.Runtime.xml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.xml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Excel.xml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.vbprojResolveAssemblyReference.cache
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.vbproj.ResolveComReference.cache
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmAbout.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBatchMail.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBatchMailFirstForm.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmBolme.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmFrequentFile.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.frmSubelerPersonel.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.rbExcelent.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.Resources.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.vbproj.GenerateResource.Cache
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.xml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\VS 2015\Projects\VS 2013 Projeleri\vbnet\VSTO\Excelent\Excelent\obj\Debug\Excelent.pdb
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.dll.config
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.pdb
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.xml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.dll.manifest
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.vsto
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Excel.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.VisualStudio.Tools.Applications.Runtime.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.vbprojResolveAssemblyReference.cache
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.vbproj.ResolveComReference.cache
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmAbout.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmBatchMail.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmBatchMailFirstForm.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmBolme.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmFrequentFile.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmSubelerPersonel.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.rbExcelent.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.Resources.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.vbproj.GenerateResource.Cache
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.dll
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.xml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.pdb
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.vbprojAssemblyReference.cache
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.dll
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.xml
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.pdb
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.dll.config
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.dll
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.pdb
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.xml
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.dll.manifest
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Excelent.vsto
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.dll
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.dll
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.Office.Tools.Excel.dll
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\bin\Debug\Microsoft.VisualStudio.Tools.Applications.Runtime.dll
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.vbproj.ResolveComReference.cache
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmAbout.resources
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmBatchMail.resources
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmBatchMailFirstForm.resources
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmBolme.resources
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmFrequentFile.resources
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.frmSubelerPersonel.resources
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.rbExcelent.resources
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.Resources.resources
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.vbproj.GenerateResource.cache
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.vbproj.CoreCompileInputs.cache
+E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\Excelent\Excelent\obj\Debug\Excelent.vbproj.CopyComplete

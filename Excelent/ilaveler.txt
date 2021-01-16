@@ -1,0 +1,131 @@
+Sub sort_to_largest_unit_as_group()
+
+Dim dict As New Scripting.Dictionary
+
+Dim i As Integer
+
+Dim hacimhucre, yenialan, u, y As Range
+
+ 
+
+ 
+
+'önce Fye göre sortla
+
+Set hacimhucre = Application.InputBox("hacimsel kolondan bi hücre seç", Type:=8)
+
+ 
+
+ActiveWorkbook.Worksheets("Sheet1").Sort.SortFields.Clear
+
+ActiveWorkbook.Worksheets("Sheet1").Sort.SortFields.Add Key:=hacimhucre, _
+
+    SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:=xlSortNormal
+
+With ActiveWorkbook.Worksheets("Sheet1").Sort
+
+    .SetRange Range(Range("A2"), Range("A2").End(xlDown).End(xlToRight))
+
+    .Header = xlNo
+
+    .MatchCase = False
+
+    .Orientation = xlTopToBottom
+
+    .SortMethod = xlPinYin
+
+    .Apply
+
+End With
+
+   
+
+Set unitler = Range(Range("a2"), Range("a2").End(xlDown))
+
+ 
+
+For Each u In unitler
+
+    If Not dict.Exists(u.Value) Then
+
+        dict.Add Key:=u.Value, Item:=i
+
+        i = i + 1
+
+    End If
+
+Next u
+
+ 
+
+'sonra da yeni kolon açýp buraya sýranolarý yazdýr
+
+Columns("A:A").Select
+
+Selection.Insert Shift:=xlToRight, CopyOrigin:=xlFormatFromLeftOrAbove
+
+Range("a2").Select
+
+ 
+
+Set yenialan = Range(Range("a2"), Range("a2").Offset(0, 1).End(xlDown).Offset(0, -1))
+
+For Each y In yenialan
+
+    y.Value = dict(y.Offset(0, 1).Value)
+
+Next y
+
+ 
+
+ 
+
+'ayný anda sicil, kpi gibi baþka boyutlar varsa bunlarý sen manuel sortlarsýn
+
+ 
+
+End Sub
+
+Sub quick_lookup()
+Dim hedef, hedefdolu, a, b, kaynak, lookupyazýmalaný As Range
+Dim dict As New Scripting.Dictionary
+
+
+Set hedef = Application.InputBox("Nerden lookup çekçeksen ilk kolonu seç", Type:=8)
+Set kaynak = Application.InputBox("hangi kolona lookup çekmek istiyorsun", Type:=8)
+cevap = InputBox("Üzerine mi yazsýn, yoksa yana kolon mu açsýn: Üzerine yazsýn istiyorsaýz 1, yoksa 2 yazýn.", "Ýþlem türü", 1)
+
+If Application.Calculation = xlCalculationAutomatic Then
+    Application.Calculation = xlCalculationManual
+End If
+
+Application.ScreenUpdating = False
+
+Set hedefdolu = Range(hedef.Cells(1, 1), hedef.End(xlDown))
+
+For Each a In hedefdolu
+    If Not dict.Exists(a.Value2) Then
+        dict.Add Key:=a.Value2, Item:=a.Offset(0, 1).Value2
+    End If
+Next a
+
+
+kaynak.Offset(0, 1).Insert Shift:=xlToRight, CopyOrigin:=xlFormatFromLeftOrAbove
+
+Set lookupyazýmalaný = Range(kaynak.Offset(0, 1).Cells(1, 1), kaynak.End(xlDown).Offset(0, 1))
+
+For Each b In lookupyazýmalaný
+    b.Value2 = dict(b.Offset(0, -1).Value2)
+Next b
+
+If cevap = 1 Then
+    lookupyazýmalaný.Copy
+    kaynak.Cells(1, 1).Select
+    ActiveSheet.Paste
+    lookupyazýmalaný.EntireColumn.Delete
+End If
+
+Application.Calculation = xlCalculationAutomatic
+Application.ScreenUpdating = True
+
+End Sub

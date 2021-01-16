@@ -1,0 +1,17 @@
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\bin\Debug\VSTOvb.dll
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\bin\Debug\VSTOvb.pdb
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\bin\Debug\VSTOvb.xml
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\bin\Debug\VSTOvb.dll.manifest
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\bin\Debug\VSTOvb.vsto
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.vbprojAssemblyReference.cache
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.frmSetting1.resources
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.MyUserControl.resources
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.RenkliTextBox.resources
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.Ribbon1.resources
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.Resources.resources
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.vbproj.GenerateResource.cache
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.vbproj.CopyComplete
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.dll
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.xml
+E:\OneDrive\Dökümanlar\GitHub\dotnet\Ugulamalar\VSTOvb\obj\Debug\VSTOvb.pdb
