@@ -85,6 +85,8 @@
             this.toggleButton1 = this.Factory.CreateRibbonToggleButton();
             this.group8 = this.Factory.CreateRibbonGroup();
             this.button30 = this.Factory.CreateRibbonButton();
+            this.group9 = this.Factory.CreateRibbonGroup();
+            this.label1 = this.Factory.CreateRibbonLabel();
             this.tab2 = this.Factory.CreateRibbonTab();
             this.group2 = this.Factory.CreateRibbonGroup();
             this.button2 = this.Factory.CreateRibbonButton();
@@ -106,8 +108,6 @@
             this.button12 = this.Factory.CreateRibbonButton();
             this.tab3 = this.Factory.CreateRibbonTab();
             this.button3 = this.Factory.CreateRibbonButton();
-            this.group9 = this.Factory.CreateRibbonGroup();
-            this.label1 = this.Factory.CreateRibbonLabel();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.group5.SuspendLayout();
@@ -116,6 +116,7 @@
             this.group4.SuspendLayout();
             this.group7.SuspendLayout();
             this.group8.SuspendLayout();
+            this.group9.SuspendLayout();
             this.tab2.SuspendLayout();
             this.group2.SuspendLayout();
             this.group3.SuspendLayout();
@@ -123,7 +124,6 @@
             this.box2.SuspendLayout();
             this.box1.SuspendLayout();
             this.tab3.SuspendLayout();
-            this.group9.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
@@ -445,6 +445,17 @@
             this.button30.Name = "button30";
             this.button30.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button30_Click);
             // 
+            // group9
+            // 
+            this.group9.Items.Add(this.label1);
+            this.group9.Label = "Hakkında";
+            this.group9.Name = "group9";
+            // 
+            // label1
+            // 
+            this.label1.Label = "label1";
+            this.label1.Name = "label1";
+            // 
             // tab2
             // 
             this.tab2.Groups.Add(this.group2);
@@ -574,17 +585,6 @@
             this.button3.Name = "button3";
             this.button3.ShowImage = true;
             // 
-            // group9
-            // 
-            this.group9.Items.Add(this.label1);
-            this.group9.Label = "Hakkında";
-            this.group9.Name = "group9";
-            // 
-            // label1
-            // 
-            this.label1.Label = "label1";
-            this.label1.Name = "label1";
-            // 
             // Ribbon1
             // 
             this.Name = "Ribbon1";
@@ -613,6 +613,8 @@
             this.group7.PerformLayout();
             this.group8.ResumeLayout(false);
             this.group8.PerformLayout();
+            this.group9.ResumeLayout(false);
+            this.group9.PerformLayout();
             this.tab2.ResumeLayout(false);
             this.tab2.PerformLayout();
             this.group2.ResumeLayout(false);
@@ -627,8 +629,6 @@
             this.box1.PerformLayout();
             this.tab3.ResumeLayout(false);
             this.tab3.PerformLayout();
-            this.group9.ResumeLayout(false);
-            this.group9.PerformLayout();
             this.ResumeLayout(false);
 
         }

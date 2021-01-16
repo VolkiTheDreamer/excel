@@ -1,0 +1,16 @@
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Release\VSTOcsharp.dll.config
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Release\VSTOcsharp.dll
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Release\VSTOcsharp.pdb
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Release\VSTOcsharp.dll.manifest
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Release\VSTOcsharp.vsto
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.csprojAssemblyReference.cache
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.frmSetting1.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.MyUserControl.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.Properties.Resources.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.RenkliTextBox.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.Ribbon1.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.csproj.GenerateResource.cache
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.csproj.CopyComplete
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.dll
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Release\VSTOcsharp.pdb

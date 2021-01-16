@@ -13,3 +13,18 @@ E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\VSTOcsharp\bin\D
 E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\VSTOcsharp\obj\Debug\VSTOcsharp.csproj.CopyComplete
 E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\VSTOcsharp\obj\Debug\VSTOcsharp.dll
 E:\OneDrive\Uygulama Geliştirme\Visual Studio\Gerçek Projeler\VSTOcsharp\obj\Debug\VSTOcsharp.pdb
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Debug\VSTOcsharp.dll.config
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Debug\VSTOcsharp.dll
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Debug\VSTOcsharp.pdb
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Debug\VSTOcsharp.dll.manifest
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Debug\VSTOcsharp.vsto
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.frmSetting1.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.MyUserControl.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.Properties.Resources.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.RenkliTextBox.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.Ribbon1.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.csproj.GenerateResource.cache
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.csproj.CopyComplete
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.dll
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTOcsharp\obj\Debug\VSTOcsharp.pdb
