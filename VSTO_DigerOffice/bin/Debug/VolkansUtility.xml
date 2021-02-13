@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VolkansUtility</name>
+    </assembly>
+    <members>
+        <member name="M:VolkansUtility.Conversion.ListofArraytoDatatable``1(System.Collections.Generic.List{``0[]})">
+            <summary>
+            all of these methods are used as extension methods
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VolkansUtility.ExcelRW.WriteDataTableContentToActiveWBWithInterop(System.Data.DataTable,VolkansUtility.ExcelRW.TargetLocation,System.Boolean,System.Boolean)">
+            <summary>
+            Used when the workbook is already open.
+            </summary>
+            <param name="dt">Datatable</param>
+            <param name="whereTo">wheteher you want to insert the data into activecell or a new sheet</param>
+            <param name="printTitle">..</param>
+            <param name="formatting">..</param>
+        </member>
+        <member name="M:VolkansUtility.ExcelRW.WriteDataTableContentWithClosedXML(System.Data.DataTable,System.String,System.String,System.Boolean)">
+            <summary>
+            Used when the workbook is closed.
+            </summary>
+            <param name="dt"></param>
+            <param name="filenamepath">Full pathname. If you want a nerw file to be created, skip this</param>
+            <param name="openAfter">Whether you want to open the file after the write operation</param>  
+        </member>
+        <member name="M:VolkansUtility.ExcelRW.ReadFromExcelIntoDTWithOledDB(System.String,System.String)">
+            <summary>
+            Reads the data from Excel workbook while it is closed. There is 255-character-limit problem with this. Try ExcelReader in that case
+            </summary>
+            <param name="filename"></param>
+            <param name="sheet"></param>
+            <param name="crt"></param>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VolkansUtility.ExcelRW.ReadFromExcelIntoDTWithExcelReader(System.String,System.Object,System.String,System.String[])">
+            <summary>
+            Makes use of ExcelDataReader package
+            </summary>
+            <param name="filename"></param>
+            <param name="sheet">You can provide this either 1-based index or sheet name</param>
+            <param name="criteria"></param>
+            <param name="cols"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VolkansUtility.Statics.KökDizimsinGetir">
+            <summary>
+            Bunları da Extensions içine alalım, sadece extension olsunlar
+            </summary>
+            <param name="s"></param>
+        </member>
+    </members>
+</doc>

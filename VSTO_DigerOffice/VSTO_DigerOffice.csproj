@@ -110,9 +110,8 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="VolkansUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\VolkansUtility\bin\Release\VolkansUtility.dll</HintPath>
+    <Reference Include="VolkansUtility">
+      <HintPath>..\..\dotnet\Ugulamalar\VolkansUtility\bin\Release\VolkansUtility.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
