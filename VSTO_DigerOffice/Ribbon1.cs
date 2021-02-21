@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Data.OleDb;
 using System.Data;
 using VolkansUtility;
-using Microsoft.VisualBasic;//Inoutbox kullanabilmek için ekledik. c#'ta bu yok
+using Microsoft.VisualBasic;//Inputbox kullanabilmek için ekledik. c#'ta bu yok
 
 namespace VSTO_DigerOffice
 {

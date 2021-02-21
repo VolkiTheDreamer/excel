@@ -11,6 +11,16 @@ namespace VSTO_DigerOffice
 {
     public partial class ThisAddIn
     {
+        //Bu kısım VBA'de kullanım içindir
+        private VBAClass vbc;
+        protected override object RequestComAddInAutomationService()
+        {
+            if (vbc == null)
+                vbc = new VBAClass();
+
+            return vbc;
+        }
+
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
         }

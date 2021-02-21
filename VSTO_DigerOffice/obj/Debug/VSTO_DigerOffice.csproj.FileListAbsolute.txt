@@ -1,8 +1,3 @@
-E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.csprojAssemblyReference.cache
-E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.csproj.ResolveComReference.cache
-E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.Properties.Resources.resources
-E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.Ribbon1.resources
-E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.csproj.GenerateResource.cache
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\bin\Debug\VSTO_DigerOffice.dll
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\bin\Debug\VSTO_DigerOffice.pdb
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\bin\Debug\VSTO_DigerOffice.dll.manifest
@@ -25,6 +20,11 @@ E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\bin\Debug\ClosedXML.pdb
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\bin\Debug\ClosedXML.xml
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\bin\Debug\DocumentFormat.OpenXml.xml
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\bin\Debug\ExcelNumberFormat.xml
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.csprojAssemblyReference.cache
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.csproj.ResolveComReference.cache
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.Properties.Resources.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.Ribbon1.resources
+E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.csproj.GenerateResource.cache
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.csproj.CopyComplete
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.dll
 E:\OneDrive\Dökümanlar\GitHub\excel\VSTO_DigerOffice\obj\Debug\VSTO_DigerOffice.pdb
